@@ -9,7 +9,7 @@ import com.luna.ce.module.Module;
 public class WindowKeybinds extends Window {
 	public WindowKeybinds( final int x, final int y ) {
 		super( "Keybinds", new SkinCE( ), x, y, 0, 0, true );
-		// TODO Auto-generated constructor stub
+		setPinnable( false );
 	}
 	
 	@Override

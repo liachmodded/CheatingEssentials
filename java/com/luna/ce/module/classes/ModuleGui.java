@@ -22,6 +22,7 @@ public class ModuleGui extends Module {
 	@Override
 	public void initializeLater( ) {
 		gui = new CEGuiModule( );
+		gui.loadGuiConfig( );
 	}
 	
 	@Override

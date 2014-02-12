@@ -15,6 +15,7 @@ import com.luna.ce.module.classes.ModuleBreadcrumbs;
 import com.luna.ce.module.classes.ModuleChestESP;
 import com.luna.ce.module.classes.ModuleDolphin;
 import com.luna.ce.module.classes.ModuleFastBreak;
+import com.luna.ce.module.classes.ModuleFastplace;
 import com.luna.ce.module.classes.ModuleFly;
 import com.luna.ce.module.classes.ModuleFullbright;
 import com.luna.ce.module.classes.ModuleGui;
@@ -55,13 +56,35 @@ public class ManagerModule {
 	private void addModulesByHand( ) {
 		CELogger.getInstance( ).log( EnumLogType.WARNING,
 				"Well, since Forge doesn't like my Reflection for loading modules, gotta do it by hand :(" );
-		addModules( new ModuleTest( ), new ModuleChestESP( ), new ModuleAnimalESP( ), new ModuleMobESP( ),
-				new ModuleAntiArrow( ), new ModuleAutoRespawn( ), new ModuleAdvancedTooltips( ),
-				new ModuleSprint( ), new ModuleSneak( ), new ModuleJumpStep( ), new ModuleDolphin( ),
-				new ModuleHighJump( ), new ModuleNoWeather( ), new ModuleNoWeb( ), new ModuleReloadChunks( ),
-				new ModuleFullbright( ), new ModuleNoFall( ), new ModuleFastBreak( ),
-				new ModuleBreadcrumbs( ), new ModuleStep( ), new ModuleArrayList( ),
-				new ModuleBlockOverlay( ), new ModuleGui( ), new ModuleFly( ) );
+		// @formatter:off
+		addModules( 
+				new ModuleTest( ), 
+				new ModuleChestESP( ), 
+				new ModuleAnimalESP( ), 
+				new ModuleMobESP( ),
+				new ModuleAntiArrow( ), 
+				new ModuleAutoRespawn( ), 
+				new ModuleAdvancedTooltips( ),
+				new ModuleSprint( ), 
+				new ModuleSneak( ), 
+				new ModuleJumpStep( ), 
+				new ModuleDolphin( ),
+				new ModuleHighJump( ), 
+				new ModuleNoWeather( ), 
+				new ModuleNoWeb( ), 
+				new ModuleReloadChunks( ),
+				new ModuleFullbright( ), 
+				new ModuleNoFall( ), 
+				new ModuleFastBreak( ),
+				new ModuleBreadcrumbs( ), 
+				new ModuleStep( ), 
+				new ModuleArrayList( ),
+				new ModuleBlockOverlay( ), 
+				new ModuleGui( ), 
+				new ModuleFly( ), 
+				new ModuleFastplace() 
+				);
+		// @formatter:on
 	}
 	
 	private void addModules( final Module... modules ) {

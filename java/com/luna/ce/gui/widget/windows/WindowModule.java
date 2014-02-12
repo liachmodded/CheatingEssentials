@@ -14,6 +14,7 @@ public class WindowModule extends Window {
 		super( type.getRealName( ), new SkinCE( ), x, y, 0, 0, true );
 		this.type = type;
 		addComponentsLater( );
+		setPinnable( false );
 	}
 	
 	@Override

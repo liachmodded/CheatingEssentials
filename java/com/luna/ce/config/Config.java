@@ -6,9 +6,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.luna.ce.CheatingEssentials;
+import com.luna.ce.gui.widget.base.Window;
 import com.luna.ce.log.CELogger;
 import com.luna.ce.manager.ManagerModule;
 import com.luna.ce.module.Module;
+import com.luna.ce.module.classes.ModuleGui;
 import com.luna.lib.io.config.ConfigParser;
 import com.luna.lib.loggers.enums.EnumLogType;
 
@@ -18,15 +20,22 @@ public class Config {
 																		CheatingEssentials.getInstance( )
 																				.getDataDir( ),
 																		File.separator ) );
+	
+	private static final File		guiFile						= new File( String.format( "%s%sgui.cheat",
+																		CheatingEssentials.getInstance( )
+																				.getDataDir( ),
+																		File.separator ) );
+	
 	private static boolean			initialized					= false;
 	private static Config			instance;
 	private static final boolean	FORCE_INITIAL_FILE_RECREATE	= false;
 	private static final String		SEP_CHAR					= ";";
 	
-	private final ConfigParser		ioModule;
+	private final ConfigParser		ioModule, ioGui;
 	
 	private Config( ) {
 		ioModule = ConfigParser.getInstance( moduleFile );
+		ioGui = ConfigParser.getInstance( guiFile );
 	}
 	
 	public static Config getInstance( ) {
@@ -39,14 +48,13 @@ public class Config {
 	}
 	
 	private static void initialize( ) {
-		if( !moduleFile.exists( ) || FORCE_INITIAL_FILE_RECREATE ) {
-			try {
-				CELogger.getInstance( ).log( EnumLogType.IO,
-						"Creating module file because it was not found..." );
-				moduleFile.createNewFile( );
+		if( !moduleFile.exists( ) || FORCE_INITIAL_FILE_RECREATE || !guiFile.exists( ) ) {
+			CELogger.getInstance( ).log( EnumLogType.IO, "Creating files that were not found..." );
+			if( !moduleFile.exists( ) ) {
 				instance.saveModuleConfig( );
-			} catch( final IOException e ) {
-				e.printStackTrace( );
+			}
+			if( !guiFile.exists( ) ) {
+				instance.saveGuiConfig( );
 			}
 		}
 		instance.loadModuleConfig( );
@@ -61,6 +69,14 @@ public class Config {
 		moduleInfo.add( "# just refer to the LWJGL Keyboard documentation.\n" );
 	}
 	
+	private void createGuiFileComments( final List< String > guiInfo ) {
+		guiInfo.add( "# Format:\n" );
+		guiInfo.add( "# window_name;x;y;window_pinned;window_minimized\n" );
+		guiInfo.add( "# \n" );
+		guiInfo.add( "# The states can be manually edited, \n" );
+		guiInfo.add( "# just know how booleans work.\n" );
+	}
+	
 	private void recreate( final File f ) {
 		if( f.exists( ) ) {
 			f.delete( );
@@ -71,6 +87,39 @@ public class Config {
 			CELogger.getInstance( ).log( EnumLogType.WARNING,
 					String.format( "Failed to recreate file '%s', this is VERY bad.", f.getName( ) ) );
 			e.printStackTrace( );
+		}
+	}
+	
+	public void saveGuiConfig( ) {
+		recreate( guiFile );
+		final List< String > guiInfo = new ArrayList<>( );
+		createGuiFileComments( guiInfo );
+		for( final Window e : ManagerModule.getInstance( ).getModuleByClass( ModuleGui.class ).getGui( )
+				.getWindows( ) ) {
+			guiInfo.add( String.format( "%s%s%d%s%d%s%b%s%b\n", e.getText( ), SEP_CHAR, e.getX( ), SEP_CHAR,
+					e.getY( ), SEP_CHAR, e.getPinned( ), SEP_CHAR, e.getExpanded( ) ) );
+		}
+	}
+	
+	public void loadGuiConfig( ) {
+		ioGui.setupRead( );
+		final List< String > configLines = ioGui.read( );
+		ioGui.closeStream( );
+		
+		for( final String e : configLines ) {
+			final String[ ] info = e.split( SEP_CHAR );
+			for( final Window w : ManagerModule.getInstance( ).getModuleByClass( ModuleGui.class ).getGui( )
+					.getWindows( ) ) {
+				CELogger.getInstance( ).log(
+						String.format( "Trying %s for input %s...", w.getText( ), info[ 0 ] ) );
+				if( w.getText( ).equals( info[ 0 ] ) ) {
+					w.setX( Integer.parseInt( info[ 1 ] ) );
+					w.setY( Integer.parseInt( info[ 2 ] ) );
+					w.setPinned( Boolean.parseBoolean( info[ 3 ] ) );
+					w.setExpanded( Boolean.parseBoolean( info[ 4 ] ) );
+					break;
+				}
+			}
 		}
 	}
 	
@@ -94,9 +143,7 @@ public class Config {
 		
 		for( final String e : configLines ) {
 			final String[ ] args = e.split( SEP_CHAR );
-			CELogger.getInstance( ).log( String.format( "Searching for module %s...", args[ 0 ] ) );
 			final Module m = ManagerModule.getInstance( ).getModuleByName( args[ 0 ] );
-			CELogger.getInstance( ).log( String.format( "Updating keybind for %s...", args[ 0 ] ) );
 			m.setKey( Integer.parseInt( args[ 1 ] ) );
 			if( Boolean.parseBoolean( args[ 2 ] ) ) {
 				CELogger.getInstance( ).log( String.format( "Toggling %s...", args[ 0 ] ) );

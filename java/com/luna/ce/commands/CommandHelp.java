@@ -34,6 +34,7 @@ public class CommandHelp extends ACommand {
 	
 	@Override
 	public void onCommand( final String[ ] args ) {
+		// Check if we have too many arguments. Subject to change. Maybe
 		if( args.length > 2 ) {
 			addChatMessage( String
 					.format( "Too many arguments for %shelp%s!", CheatingEssentials.getInstance( )
@@ -41,18 +42,21 @@ public class CommandHelp extends ACommand {
 			return;
 		}
 		try {
+			// Default help page (1)
 			if( args.length == 1 ) {
 				for( final String e : createHelpPage( 1 ) ) {
 					addChatMessage( e );
 				}
 				return;
 			}
+			// Generate a help page
 			for( final String e : createHelpPage( Integer.parseInt( args[ 1 ] ) ) ) {
 				addChatMessage( e );
 			}
 			return;
 		} catch( final Exception e ) {
 			try {
+				// Well, $USER wasn't looking for a help page, so we try modules
 				final Module m = ManagerModule.getInstance( ).getModuleByName( args[ 1 ] );
 				final String[ ] halp = m.getHelp( );
 				// @formatter:off
@@ -68,10 +72,13 @@ public class CommandHelp extends ACommand {
 				return;
 			} catch( final Exception f ) {
 				try {
+					// Everything else's failed, so just blindly try EVERY
+					// command we've got
 					for( final Command c : ManagerCommand.getInstance( ).getCommands( ) ) {
 						if( c.getName( ).toLowerCase( ).replaceAll( " ", "" )
 								.equals( args[ 1 ].toLowerCase( ) ) ) {
 							String cmd = c.toString( );
+							// I'll find a better way of doing this later.
 							if( c instanceof Module ) {
 								final Module q = ( Module ) c;
 								cmd = String.format( "%s: %s", q.getName( ), findUsage( q ) );
@@ -87,7 +94,8 @@ public class CommandHelp extends ACommand {
 					}
 					return;
 				} catch( final Exception g ) {
-					g.printStackTrace( );
+					// It's all over! We couldn't find what you're looking for!
+					// g.printStackTrace( );
 					addChatMessage( String.format( "Invalid command: %s%s%s", CheatingEssentials
 							.getInstance( ).getChatColor( 'c' ), args.length > 1 ? args[ 1 ] : "NULL",
 							CheatingEssentials.getInstance( ).getChatColor( 'r' ) ) );

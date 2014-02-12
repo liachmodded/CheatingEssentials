@@ -1,5 +1,6 @@
 package com.luna.ce.gui;
 
+import com.luna.ce.config.Config;
 import com.luna.ce.gui.widget.base.Window;
 import com.luna.ce.gui.widget.gui.WindowMenuBase;
 import com.luna.ce.gui.widget.windows.WindowKeybinds;
@@ -21,5 +22,19 @@ public class CEGuiModule extends WindowMenuBase {
 	private void addAWindow( final Window w ) {
 		super.addWindow( w );
 		yOffset += 15;
+	}
+	
+	@Override
+	public boolean doesGuiPauseGame( ) {
+		return false;
+	}
+	
+	@Override
+	public void onGuiClosed( ) {
+		Config.getInstance( ).saveGuiConfig( );
+	}
+	
+	public void loadGuiConfig( ) {
+		Config.getInstance( ).loadGuiConfig( );
 	}
 }

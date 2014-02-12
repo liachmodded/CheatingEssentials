@@ -39,6 +39,8 @@ public class ManagerCommand {
 	public void parseCommands( final ServerChatEvent ev ) {
 		if( ev.message.startsWith( CheatingEssentials.getInstance( ).getCommandPrefix( ) ) ) {
 			ev.setCanceled( true );
+		} else {
+			return;
 		}
 		final String[ ] args = ev.message.substring( 1 ).split( " " );
 		parseCommand( args );
