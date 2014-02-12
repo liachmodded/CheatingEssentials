@@ -12,7 +12,7 @@ public class ModuleStep extends Module {
 	
 	public ModuleStep( ) {
 		super( "Step", "Step up blocks without jumping.", EnumModuleType.PLAYER );
-		setHelp( getDesc( ), String.format( "Usage: %s [set <value>]", getName( ) ) );
+		setHelp( getDesc( ), String.format( "Usage: %s [set <value>]", getName( ).toLowerCase( ) ) );
 	}
 	
 	@Override

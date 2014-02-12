@@ -13,7 +13,7 @@ public class ModuleHighJump extends Module {
 	
 	public ModuleHighJump( ) {
 		super( "HighJump", "Jump higher than normal", EnumModuleType.PLAYER );
-		setHelp( getDesc( ), String.format( "Usage: %s [set <value>]", getName( ) ) );
+		setHelp( getDesc( ), String.format( "Usage: %s [set <value>]", getName( ).toLowerCase( ) ) );
 	}
 	
 	@Override

@@ -177,13 +177,14 @@ public class ManagerCommand {
 	}
 	
 	public List< String > dumpCommands( ) {
-		// Will change this behavior later
 		final List< String > commands = new ArrayList<>( );
 		for( final Command c : this.commands ) {
 			String cmd = c.toString( );
+			// Will change this behavior later
 			if( c instanceof Module ) {
 				final Module e = ( Module ) c;
-				cmd = String.format( "%s: %s", e.getName( ), findUsage( e ) );
+				cmd = String.format( "%s: %s", e.getName( ).toLowerCase( ).replaceAll( " ", "" ),
+						findUsage( e ) );
 			}
 			if( c instanceof ACommand ) {
 				cmd = ( ( ACommand ) c ).getSyntax( );
@@ -197,10 +198,14 @@ public class ManagerCommand {
 	
 	private String findUsage( final Module e ) {
 		for( final String s : e.getHelp( ) ) {
-			if( s.startsWith( "" ) ) {
+			if( s.startsWith( "Usage" ) ) {
 				return s;
 			}
 		}
 		return e.toString( );
+	}
+	
+	public List< Command > getCommands( ) {
+		return commands;
 	}
 }
