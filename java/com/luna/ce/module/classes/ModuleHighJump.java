@@ -32,6 +32,7 @@ public class ModuleHighJump extends Module {
 	
 	@Override
 	public void onWorldTick( ) {
+		getPlayer( ).addPotionEffect( new PotionEffect( Potion.jump.getId( ), 99999999, jumpValue ) );
 	}
 	
 	@SuppressWarnings( "deprecation" )

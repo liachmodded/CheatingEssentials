@@ -104,13 +104,13 @@ public abstract class Module implements Command {
 	
 	public void toggle( ) {
 		active = !active;
-		if( active ) {
-			onEnable( );
-		} else {
-			onDisable( );
-		}
 		if( getWorld( ) != null ) {
 			Config.getInstance( ).saveModuleConfig( );
+		    if( active ) {
+			    onEnable( );
+		    } else {
+			    onDisable( );
+    		}
 		}
 	}
 	

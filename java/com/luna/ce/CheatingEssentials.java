@@ -24,7 +24,7 @@ import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 @Mod( modid = CheatingEssentials.MODID, name = CheatingEssentials.NAME, version = CheatingEssentials.VERSION, canBeDeactivated = true )
 public class CheatingEssentials {
 	static final String					MODID			= "cheatingessentials";
-	static final String					VERSION			= "1.1.0";
+	static final String					VERSION			= "1.1.1";
 	static final String					RELEASE			= "Cupcake";
 	static final String					NAME			= "CheatingEssentials";
 	
