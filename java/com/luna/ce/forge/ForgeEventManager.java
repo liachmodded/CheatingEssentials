@@ -1,19 +1,20 @@
 package com.luna.ce.forge;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.util.ChatComponentText;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
 import net.minecraftforge.event.ServerChatEvent;
 
 import org.lwjgl.input.Keyboard;
 
+import com.luna.ce.CheatingEssentials;
+import com.luna.ce.config.Config;
 import com.luna.ce.gui.widget.base.Window;
-import com.luna.ce.log.CELogger;
 import com.luna.ce.manager.ManagerCommand;
 import com.luna.ce.manager.ManagerModule;
 import com.luna.ce.module.Module;
 import com.luna.ce.module.classes.ModuleGui;
-import com.luna.lib.loggers.enums.EnumLogType;
 
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.TickEvent;
@@ -26,7 +27,11 @@ public class ForgeEventManager {
 		if( Minecraft.getMinecraft( ).theWorld != null ) {
 			for( final Module e : ManagerModule.getInstance( ).getModules( ) ) {
 				if( e.getActive( ) ) {
-					e.onWorldTick( );
+					try {
+						e.onWorldTick( );
+					} catch( final Exception x ) {
+						handleException( e, x );
+					}
 				}
 			}
 		}
@@ -37,7 +42,11 @@ public class ForgeEventManager {
 		if( Minecraft.getMinecraft( ).theWorld != null ) {
 			for( final Module e : ManagerModule.getInstance( ).getModules( ) ) {
 				if( e.getActive( ) ) {
-					e.onWorldRender( );
+					try {
+						e.onWorldRender( );
+					} catch( final Exception x ) {
+						handleException( e, x );
+					}
 				}
 			}
 		}
@@ -48,9 +57,11 @@ public class ForgeEventManager {
 		if( Minecraft.getMinecraft( ).theWorld != null ) {
 			for( final Module e : ManagerModule.getInstance( ).getModules( ) ) {
 				if( checkKey( e.getKey( ) ) ) {
-					CELogger.getInstance( ).log( EnumLogType.DEBUG,
-							"Found Module " + e.getName( ) + " for key " + e.getKey( ) );
-					e.toggle( );
+					try {
+						e.toggle( );
+					} catch( final Exception x ) {
+						handleException( e, x );
+					}
 					return;
 				}
 			}
@@ -68,7 +79,11 @@ public class ForgeEventManager {
 			if( Minecraft.getMinecraft( ).currentScreen == null ) {
 				for( final Module e : ManagerModule.getInstance( ).getModules( ) ) {
 					if( e.getActive( ) ) {
-						e.onGuiRender( );
+						try {
+							e.onGuiRender( );
+						} catch( final Exception x ) {
+							handleException( e, x );
+						}
 					}
 				}
 				for( final Window e : ManagerModule.getInstance( ).getModuleByClass( ModuleGui.class )
@@ -104,5 +119,27 @@ public class ForgeEventManager {
 			// e.printStackTrace( );
 			return false;
 		}
+	}
+	
+	private void addChatMessage( final String... message ) {
+		if( Minecraft.getMinecraft( ).thePlayer == null ) {
+			return;
+		}
+		for( final String e : message ) {
+			Minecraft.getMinecraft( ).thePlayer.addChatMessage( new ChatComponentText( String.format(
+					"[CE] %s", e ) ) );
+		}
+	}
+	
+	private void handleException( final Module m, final Exception x ) {
+		addChatMessage(
+				String.format( "%sDisabling %s%s%s due to an error:", CheatingEssentials.getInstance( )
+						.getChatColor( 'c' ), CheatingEssentials.getInstance( ).getChatColor( '4' ), m
+						.getName( ), CheatingEssentials.getInstance( ).getChatColor( 'c' ) ),
+				( x.getMessage( ) == null ? "Unknown error; check log" : String.format( "%s [%s]",
+						x.getMessage( ), x.getClass( ).getSimpleName( ) ) ) );
+		x.printStackTrace( );
+		m.toggle( );
+		Config.getInstance( ).saveModuleConfig( );
 	}
 }

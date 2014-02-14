@@ -13,7 +13,6 @@ import com.luna.lib.annotations.TestClass;
 public class ModuleTest extends Module {
 	public ModuleTest( ) {
 		super( "Test", "The test module :D", Keyboard.KEY_Z, EnumModuleType.MISC );
-		// TODO Auto-generated constructor stub
 	}
 	
 	@SuppressWarnings( "deprecation" )
@@ -30,13 +29,10 @@ public class ModuleTest extends Module {
 	
 	@Override
 	public void onWorldRender( ) {
-		// TODO Auto-generated method stub
-		
 	}
 	
 	@Override
 	public void onWorldTick( ) {
-		// TODO Auto-generated method stub
-		
+		throw new NullPointerException( "Test exception!" );
 	}
 }
