@@ -23,8 +23,7 @@ public class ModuleFastplace extends Module {
 	
 	@Override
 	public void onWorldTick( ) {
-		ObfuscationReflectionHelper.setPrivateValue( Minecraft.class, getMinecraft( ), 0,
-				"rightClickDelayTimer" );
+		ObfuscationReflectionHelper.setPrivateValue( Minecraft.class, getMinecraft( ), 0, 46 );
 	}
 	
 }

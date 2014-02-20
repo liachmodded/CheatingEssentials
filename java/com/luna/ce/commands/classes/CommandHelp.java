@@ -1,4 +1,4 @@
-package com.luna.ce.commands;
+package com.luna.ce.commands.classes;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,6 +6,7 @@ import java.util.List;
 import net.minecraft.util.StringUtils;
 
 import com.luna.ce.CheatingEssentials;
+import com.luna.ce.commands.ACommand;
 import com.luna.ce.manager.ManagerCommand;
 import com.luna.ce.manager.ManagerModule;
 import com.luna.ce.module.Module;
@@ -13,7 +14,7 @@ import com.luna.lib.interfaces.Command;
 
 public class CommandHelp extends ACommand {
 	/**
-	 * Max commands/page. Each page is 7 lines, formatted as
+	 * Max commands/page. Each page is 10 lines, formatted as
 	 * 
 	 * <pre>
 	 * --------HEADER--------
@@ -22,14 +23,16 @@ public class CommandHelp extends ACommand {
 	 * Command - Help
 	 * Command - Help
 	 * Command - Halp
+	 * Command - Help
+	 * Command - Help
+	 * Command - Help
 	 * --------FOOTER--------
 	 * </pre>
 	 */
-	private final int	HELP_MAX_SIZE	= 5;
+	private final int	HELP_MAX_SIZE	= 8;
 	
 	public CommandHelp( ) {
 		super( "help" );
-		// TODO Auto-generated constructor stub
 	}
 	
 	@Override
@@ -106,7 +109,7 @@ public class CommandHelp extends ACommand {
 	
 	private List< String > createHelpPage( int p ) {
 		final List< String > dump = ManagerCommand.getInstance( ).dumpCommands( );
-		final int pageCount = Math.round( dump.size( ) / HELP_MAX_SIZE );
+		final int pageCount = Math.round( ( dump.size( ) - 1 ) / HELP_MAX_SIZE );
 		
 		if( p > pageCount ) {
 			p = pageCount;
@@ -116,14 +119,17 @@ public class CommandHelp extends ACommand {
 		}
 		
 		final List< String > page = new ArrayList<>( );
-		page.add( getHeader( p ) );
+		
+		final String headerVal = String.format( "%d/%d", p, pageCount );
+		
+		page.add( getHeader( headerVal ) );
 		for( int i = p * HELP_MAX_SIZE; i < ( ( p * HELP_MAX_SIZE ) + HELP_MAX_SIZE ); i++ ) {
 			if( i >= dump.size( ) ) {
 				break;
 			}
 			page.add( dump.get( i ).replaceAll( "Usage: ", "" ) );
 		}
-		page.add( getFooter( p ) );
+		page.add( getFooter( headerVal ) );
 		
 		return page;
 	}

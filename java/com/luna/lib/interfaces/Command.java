@@ -8,4 +8,6 @@ public interface Command {
 	public void onCommand( String[ ] args );
 	
 	public String getName( );
+	
+	public String getSyntax( );
 }

@@ -19,7 +19,7 @@ public class ModuleAutoRespawn extends Module {
 	
 	@Override
 	public void onWorldTick( ) {
-		if( getPlayer( ).isDead ) {
+		if( getPlayer( ).isDead || ( getPlayer( ).getHealth( ) <= 0 ) ) {
 			getPlayer( ).respawnPlayer( );
 		}
 	}

@@ -13,7 +13,7 @@ public class ModuleHighJump extends Module {
 	
 	public ModuleHighJump( ) {
 		super( "HighJump", "Jump higher than normal", EnumModuleType.PLAYER );
-		setHelp( getDesc( ), String.format( "Usage: %s [set <value>]", getName( ).toLowerCase( ) ) );
+		setHelp( getDesc( ), String.format( "Usage: %s", getSyntax( ).toLowerCase( ) ) );
 	}
 	
 	@Override
@@ -35,16 +35,19 @@ public class ModuleHighJump extends Module {
 		getPlayer( ).addPotionEffect( new PotionEffect( Potion.jump.getId( ), 99999999, jumpValue ) );
 	}
 	
-	@SuppressWarnings( "deprecation" )
+	// @SuppressWarnings( "deprecation" )
 	@Override
 	protected void childSetCommand( final String[ ] args ) {
 		try {
 			changeStepHeight( Integer.parseInt( args[ 2 ] ) );
 		} catch( final NumberFormatException e ) {
-			addChatMessage( String.format(
+			// @formatter:off
+			/*addChatMessage( String.format(
 					"The %sset%s subcommand of %s%s%s requires a parameter of type %sint%s!",
 					getChatColor( 'c' ), getChatColor( 'r' ), getChatColor( 'a' ), getName( ),
-					getChatColor( 'r' ), getChatColor( 'c' ), getChatColor( 'r' ) ) );
+					getChatColor( 'r' ), getChatColor( 'c' ), getChatColor( 'r' ) ) );*/
+			throw(e);
+			// @formatter:on
 		}
 	}
 	
@@ -53,5 +56,10 @@ public class ModuleHighJump extends Module {
 		// Because this TOTALLY isn't a bad way to do it...
 		onDisable( );
 		onEnable( );
+	}
+	
+	@Override
+	public String getSyntax( ) {
+		return String.format( "%s [set <value>]", getName( ) );
 	}
 }

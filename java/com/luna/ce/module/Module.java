@@ -106,11 +106,11 @@ public abstract class Module implements Command {
 		active = !active;
 		if( getWorld( ) != null ) {
 			Config.getInstance( ).saveModuleConfig( );
-		    if( active ) {
-			    onEnable( );
-		    } else {
-			    onDisable( );
-    		}
+			if( active ) {
+				onEnable( );
+			} else {
+				onDisable( );
+			}
 		}
 	}
 	
@@ -201,6 +201,11 @@ public abstract class Module implements Command {
 	
 	public void setHelp( final String... newHelp ) {
 		help = newHelp;
+	}
+	
+	@Override
+	public String getSyntax( ) {
+		return getName( );
 	}
 	
 	@Deprecated

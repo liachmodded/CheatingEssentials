@@ -15,23 +15,18 @@ import com.luna.lib.io.config.ConfigParser;
 import com.luna.lib.loggers.enums.EnumLogType;
 
 public class Config {
-	private static final File		moduleFile					= new File( String.format(
-																		"%s%smodules.cheat",
-																		CheatingEssentials.getInstance( )
-																				.getDataDir( ),
-																		File.separator ) );
+	private static final File	moduleFile	= new File( String.format( "%s%smodules.cheat",
+													CheatingEssentials.getInstance( ).getDataDir( ),
+													File.separator ) );
 	
-	private static final File		guiFile						= new File( String.format( "%s%sgui.cheat",
-																		CheatingEssentials.getInstance( )
-																				.getDataDir( ),
-																		File.separator ) );
+	private static final File	guiFile		= new File( String.format( "%s%sgui.cheat", CheatingEssentials
+													.getInstance( ).getDataDir( ), File.separator ) );
 	
-	private static boolean			initialized					= false;
-	private static Config			instance;
-	private static final boolean	FORCE_INITIAL_FILE_RECREATE	= false;
-	private static final String		SEP_CHAR					= ";";
+	private static boolean		initialized	= false;
+	private static Config		instance;
+	private static final String	SEP_CHAR	= ";";
 	
-	private final ConfigParser		ioModule, ioGui;
+	private final ConfigParser	ioModule, ioGui;
 	
 	private Config( ) {
 		ioModule = ConfigParser.getInstance( moduleFile );
@@ -48,7 +43,7 @@ public class Config {
 	}
 	
 	private static void initialize( ) {
-		if( !moduleFile.exists( ) || FORCE_INITIAL_FILE_RECREATE || !guiFile.exists( ) ) {
+		if( !moduleFile.exists( ) || !guiFile.exists( ) ) {
 			CELogger.getInstance( ).log( EnumLogType.IO, "Creating files that were not found..." );
 			if( !moduleFile.exists( ) ) {
 				instance.saveModuleConfig( );
@@ -141,14 +136,24 @@ public class Config {
 		final List< String > configLines = ioModule.read( );
 		ioModule.closeStream( );
 		
+		int rm = 0;
+		
 		for( final String e : configLines ) {
 			final String[ ] args = e.split( SEP_CHAR );
 			final Module m = ManagerModule.getInstance( ).getModuleByName( args[ 0 ] );
-			m.setKey( Integer.parseInt( args[ 1 ] ) );
-			if( Boolean.parseBoolean( args[ 2 ] ) ) {
-				CELogger.getInstance( ).log( String.format( "Toggling %s...", args[ 0 ] ) );
-				m.toggle( );
+			try {
+				m.setKey( Integer.parseInt( args[ 1 ] ) );
+				if( Boolean.parseBoolean( args[ 2 ] ) ) {
+					CELogger.getInstance( ).log( String.format( "Toggling %s...", args[ 0 ] ) );
+					m.toggle( );
+				}
+			} catch( final NullPointerException q ) {
+				rm++;
 			}
+		}
+		
+		if( rm > 0 ) {
+			saveModuleConfig( );
 		}
 	}
 }
