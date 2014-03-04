@@ -87,7 +87,7 @@ public class Config {
 	
 	public void saveGuiConfig( ) {
 		recreate( guiFile );
-		final List< String > guiInfo = new ArrayList<>( );
+		final List< String > guiInfo = new ArrayList< String >( );
 		createGuiFileComments( guiInfo );
 		for( final Window e : ManagerModule.getInstance( ).getModuleByClass( ModuleGui.class ).getGui( )
 				.getWindows( ) ) {
@@ -120,7 +120,7 @@ public class Config {
 	
 	public void saveModuleConfig( ) {
 		recreate( moduleFile );
-		final List< String > moduleInfo = new ArrayList<>( );
+		final List< String > moduleInfo = new ArrayList< String >( );
 		createModuleFileComments( moduleInfo );
 		for( final Module e : ManagerModule.getInstance( ).getModules( ) ) {
 			moduleInfo.add( String.format( "%s%s%d%s%b\n", e.getName( ).replaceAll( " ", "" ).toLowerCase( ),

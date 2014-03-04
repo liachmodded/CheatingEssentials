@@ -25,6 +25,7 @@ import com.luna.ce.module.classes.ModuleMobESP;
 import com.luna.ce.module.classes.ModuleNoFall;
 import com.luna.ce.module.classes.ModuleNoWeather;
 import com.luna.ce.module.classes.ModuleNoWeb;
+import com.luna.ce.module.classes.ModulePlayerESP;
 import com.luna.ce.module.classes.ModuleReloadChunks;
 import com.luna.ce.module.classes.ModuleSneak;
 import com.luna.ce.module.classes.ModuleSprint;
@@ -44,10 +45,11 @@ public class ManagerModule {
 	public ManagerModule( ) {
 		// CELogger.getInstance( ).log( EnumLogType.SCAN,
 		// "Searching for and loading modules..." );
-		modules = new LinkedList<>( /*
-									 * Arrays.asList( getModulesFromPackage(
-									 * classToLoadFrom ) )
-									 */);
+		modules = new LinkedList< Module >( /*
+											 * Arrays.asList(
+											 * getModulesFromPackage(
+											 * classToLoadFrom ) )
+											 */);
 		addModulesByHand( );
 		CELogger.getInstance( ).log( EnumLogType.DEBUG,
 				String.format( "Modules loaded: %s!", modules.size( ) ) );
@@ -82,7 +84,8 @@ public class ManagerModule {
 				new ModuleBlockOverlay( ), 
 				new ModuleGui( ), 
 				new ModuleFly( ), 
-				new ModuleFastplace() 
+				new ModuleFastplace(),
+				new ModulePlayerESP()
 				);
 		// @formatter:on
 	}

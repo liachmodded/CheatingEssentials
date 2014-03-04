@@ -11,6 +11,7 @@ import com.luna.ce.CheatingEssentials;
 import com.luna.ce.commands.ACommand;
 import com.luna.ce.commands.classes.CommandBind;
 import com.luna.ce.commands.classes.CommandHelp;
+import com.luna.ce.commands.classes.CommandPrefix;
 import com.luna.ce.module.Module;
 import com.luna.lib.interfaces.Command;
 
@@ -20,10 +21,10 @@ public class ManagerCommand {
 	private final ArrayList< Command >	commands;
 	
 	public ManagerCommand( ) {
-		commands = new ArrayList<>( );
+		commands = new ArrayList< Command >( );
 		addModuleCommands( );
 		// And now we come to the annoying part!
-		addCommands( new CommandHelp( ), new CommandBind( ) );
+		addCommands( new CommandHelp( ), new CommandBind( ), new CommandPrefix( ) );
 	}
 	
 	private void addModuleCommands( ) {
@@ -62,10 +63,6 @@ public class ManagerCommand {
 	}
 	
 	private void parseCommand( final String[ ] args ) {
-		if( parseEmbeddedCommands( args ) ) {
-			return;
-		}
-		
 		for( final Command e : commands ) {
 			if( e.getName( ).toLowerCase( ).replaceAll( " ", "" ).equals( args[ 0 ].toLowerCase( ) ) ) {
 				try {
@@ -81,32 +78,6 @@ public class ManagerCommand {
 		}
 	}
 	
-	/**
-	 * This method is a perversion of all that is good and holy.
-	 */
-	private boolean parseEmbeddedCommands( final String[ ] args ) {
-		switch( args[ 0 ].toLowerCase( ) ) {
-			case "prefix":
-				if( args.length == 1 ) {
-					addChatMessage( String.format( "Current prefix: %s%s%s", CheatingEssentials.getInstance( )
-							.getChatColor( 'c' ), CheatingEssentials.getInstance( ).getCommandPrefix( ),
-							CheatingEssentials.getInstance( ).getChatColor( 'r' ) ) );
-				} else if( args.length == 2 ) {
-					CheatingEssentials.getInstance( ).setCommandPrefix( args[ 1 ] );
-					addChatMessage( String.format( "Prefix changed to %s%s%s!", CheatingEssentials
-							.getInstance( ).getChatColor( 'c' ), CheatingEssentials.getInstance( )
-							.getCommandPrefix( ), CheatingEssentials.getInstance( ).getChatColor( 'r' ) ) );
-				} else {
-					addChatMessage( String.format( "Too many arguments for %sprefix%s!" ), CheatingEssentials
-							.getInstance( ).getChatColor( 'c' ), CheatingEssentials.getInstance( )
-							.getChatColor( 'r' ) );
-				}
-				return true;
-			default:
-				return false;
-		}
-	}
-	
 	private void addChatMessage( final String... message ) {
 		for( final String e : message ) {
 			Minecraft.getMinecraft( ).thePlayer.addChatMessage( new ChatComponentText( String.format(
@@ -115,7 +86,7 @@ public class ManagerCommand {
 	}
 	
 	public List< String > dumpCommands( ) {
-		final List< String > commands = new ArrayList<>( );
+		final List< String > commands = new ArrayList< String >( );
 		for( final Command c : this.commands ) {
 			String cmd = c.toString( );
 			// Will change this behavior later

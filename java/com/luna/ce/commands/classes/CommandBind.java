@@ -25,6 +25,13 @@ public class CommandBind extends ACommand {
 						.getInstance( ).getChatColor( 'b' ), args[ 1 ], CheatingEssentials.getInstance( )
 						.getChatColor( 'r' ), CheatingEssentials.getInstance( ).getChatColor( 'a' ), key ) );
 			} else if( args.length == 3 ) {
+				if( args[ 2 ].toLowerCase( ).equals( "unbind".toLowerCase( ) ) ) {
+					ManagerModule.getInstance( ).getModuleByName( args[ 1 ] ).setKey( -1 );
+					addChatMessage( String.format( "%s%s%s is now unbound", CheatingEssentials.getInstance( )
+							.getChatColor( 'b' ), args[ 1 ],
+							CheatingEssentials.getInstance( ).getChatColor( 'r' ) ) );
+					return;
+				}
 				ManagerModule.getInstance( ).getModuleByName( args[ 1 ] )
 						.setKey( Keyboard.getKeyIndex( args[ 2 ].toUpperCase( ) ) );
 				addChatMessage( String.format( "%s%s%s is now bound to %s%s", CheatingEssentials

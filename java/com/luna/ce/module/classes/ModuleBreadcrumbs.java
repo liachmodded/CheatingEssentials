@@ -12,7 +12,7 @@ import com.luna.lib.annotations.Loadable;
 
 @Loadable
 public class ModuleBreadcrumbs extends Module {
-	private final LinkedList< double[ ] >	positions	= new LinkedList<>( );
+	private final LinkedList< double[ ] >	positions	= new LinkedList< double[ ] >( );
 	
 	public ModuleBreadcrumbs( ) {
 		super( "Breadcrumbs", "Leaves a trail of breadcrumbs behind you", EnumModuleType.RENDER );

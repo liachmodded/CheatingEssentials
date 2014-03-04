@@ -42,9 +42,13 @@ public final class ReflectionHelper {
 		try {
 			final T retVal = ( T ) e.invoke( e.getDeclaringClass(), params );
 			return retVal;
-		} catch( IllegalAccessException | IllegalArgumentException | InvocationTargetException e1 ) {
+		} catch( IllegalAccessException e1 ) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
+		} catch( IllegalArgumentException e2 ) {
+			e2.printStackTrace();
+		} catch( InvocationTargetException e3 ) {
+			e3.printStackTrace();
 		}
 		
 		return null;

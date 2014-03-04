@@ -25,7 +25,7 @@ public class ModuleChestESP extends Module {
 	private LinkedHashMap< Class< ? extends TileEntity >, double[ ] >	acceptedTileEntities;
 	
 	{
-		acceptedTileEntities = new LinkedHashMap<>( );
+		acceptedTileEntities = new LinkedHashMap< Class< ? extends TileEntity >, double[ ] >( );
 		acceptedTileEntities.put( TileEntityChest.class, new double[ ] {
 			0.2, 0.7, 0.7
 		} );

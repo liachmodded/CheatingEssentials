@@ -13,7 +13,7 @@ import com.luna.ce.gui.widget.base.Window;
  * change this template use File | Settings | File Templates.
  */
 public abstract class WindowMenuBase extends GuiScreen {
-	private final ArrayList< Window >	windowsList	= new ArrayList<>( );
+	private final ArrayList< Window >	windowsList	= new ArrayList< Window >( );
 	
 	@Override
 	public void initGui( ) {

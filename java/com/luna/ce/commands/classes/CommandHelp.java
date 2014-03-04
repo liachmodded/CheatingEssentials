@@ -38,12 +38,10 @@ public class CommandHelp extends ACommand {
 	@Override
 	public void onCommand( final String[ ] args ) {
 		// Check if we have too many arguments. Subject to change. Maybe
-		if( args.length > 2 ) {
-			addChatMessage( String
-					.format( "Too many arguments for %shelp%s!", CheatingEssentials.getInstance( )
-							.getChatColor( 'c' ), CheatingEssentials.getInstance( ).getChatColor( 'r' ) ) );
-			return;
+		if( args.length >= 3 ) {
+			throw new IllegalArgumentException( );
 		}
+		
 		try {
 			// Default help page (1)
 			if( args.length == 1 ) {
@@ -118,7 +116,7 @@ public class CommandHelp extends ACommand {
 			p = 1;
 		}
 		
-		final List< String > page = new ArrayList<>( );
+		final List< String > page = new ArrayList< String >( );
 		
 		final String headerVal = String.format( "%d/%d", p, pageCount );
 		

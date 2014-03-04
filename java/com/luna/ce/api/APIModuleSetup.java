@@ -5,7 +5,7 @@ import java.util.HashSet;
 import com.luna.ce.module.Module;
 
 public final class APIModuleSetup {
-	private static final HashSet< Module >	setupModules	= new HashSet<>( );
+	private static final HashSet< Module >	setupModules	= new HashSet< Module >( );
 	
 	public static void addModuleToSetupQueue( final Module mod ) {
 		synchronized( setupModules ) {
