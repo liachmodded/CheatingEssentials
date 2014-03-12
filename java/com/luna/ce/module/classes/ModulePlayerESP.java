@@ -27,9 +27,9 @@ public class ModulePlayerESP extends Module {
 				continue;
 			}
 			GLHelper.drawESP( AxisAlignedBB.getBoundingBox( e.posX - RenderManager.renderPosX - 0.5, e.posY
-					- RenderManager.renderPosY - 1.62, e.posZ - RenderManager.renderPosZ - 0.5,
+					- RenderManager.renderPosY, e.posZ - RenderManager.renderPosZ - 0.5,
 					( e.posX - RenderManager.renderPosX ) + 0.5,
-					( e.posY - RenderManager.renderPosY - 1.62 ) + 2,
+					( ( e.posY - RenderManager.renderPosY ) + 1.62 ),
 					( e.posZ - RenderManager.renderPosZ ) + 0.5 ), 0.1, 0.7, 0.7 );
 		}
 	}
