@@ -14,21 +14,21 @@ public class SkinCE implements ISkin {
 	@Override
 	public void drawWindow( final double x, final double y, final double width, final double height,
 			final boolean isOver ) {
-		GuiUtils.drawGradientRect( ( int ) x, ( int ) y, ( int ) ( width ), ( int ) ( height ), 0x98989898,
-				0x98787878 );
+		GuiUtils.drawGradientRect( x, y, width, height, 0xFF111111, 0xFF222222 );
+		GuiUtils.drawBorderedRect( x + 0.5, y, width - 0.5, height - 0.5, 1.0F, 0xFF000000, 0x0 );
 	}
 	
 	@Override
 	public void drawControls( final double x, final double y, final double width, final double height,
 			final boolean isOver ) {
-		GuiUtils.drawRect( ( int ) x, ( int ) y, ( int ) ( width ), ( int ) ( height ), isOver ? 0x77000000
-				: 0x33000000 );
+		GuiUtils.drawBorderedRect( x, y, width, height, 1.0F, 0xFF000000, isOver ? 0xFF888888 : 0xFF666666 );
 	}
 	
 	@Override
 	public void drawButton( final double x, final double y, final double width, final double height,
 			final boolean isOver ) {
-		GuiUtils.drawRect( ( int ) x, ( int ) y, ( int ) width, ( int ) height, isOver ? 0x77000000 : 0x0 );
+		GuiUtils.drawGradientBorderedRect( x, y, width, height, 1.0F, 0xFF000000, isOver ? 0xFFB42715
+				: 0xFF666666, isOver ? 0xFFD64937 : 0xFF444444 );
 	}
 	
 	@Override
@@ -46,9 +46,9 @@ public class SkinCE implements ISkin {
 	@Override
 	public void drawSlider( final int x, final int y, final int width, final int height, final boolean b ) {
 		if( b ) {
-			GuiUtils.drawRect( x, y, width, height, 0xaa000000 );
+			GuiUtils.drawGradientBorderedRect( x, y, width, height, 1.0F, 0xFF000000, 0xFF333333, 0xFF555555 );
 		} else if( !b ) {
-			GuiUtils.drawRect( x, y, width, height, 0x77000000 );
+			GuiUtils.drawGradientBorderedRect( x, y, width, height, 1.0F, 0xFF000000, 0xFF202020, 0xFF070707 );
 		}
 	}
 	

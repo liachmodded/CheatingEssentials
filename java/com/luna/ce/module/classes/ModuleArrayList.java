@@ -1,5 +1,6 @@
 package com.luna.ce.module.classes;
 
+import com.luna.ce.gui.GuiUtils;
 import com.luna.ce.manager.ManagerModule;
 import com.luna.ce.module.EnumModuleType;
 import com.luna.ce.module.Module;
@@ -31,8 +32,9 @@ public class ModuleArrayList extends Module {
 					continue;
 				}
 				if( e.getActive( ) ) {
-					getFontRenderer( ).drawStringWithShadow( e.getName( ), 2,
-							offset += getFontRenderer( ).FONT_HEIGHT + 1, 0xFFFFFFFF );
+					getFontRenderer( ).drawStringWithShadow( e.getName( ),
+							GuiUtils.getWidth( ) - getFontRenderer( ).getStringWidth( e.getName( ) ) - 2,
+							offset += getFontRenderer( ).FONT_HEIGHT + 1, e.getType( ).getColor( ) );
 				}
 			}
 		}

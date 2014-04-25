@@ -10,6 +10,7 @@ import org.lwjgl.input.Keyboard;
 
 import com.luna.ce.CheatingEssentials;
 import com.luna.ce.config.Config;
+import com.luna.ce.gui.CEHUD;
 import com.luna.ce.gui.widget.base.Window;
 import com.luna.ce.manager.ManagerCommand;
 import com.luna.ce.manager.ManagerModule;
@@ -76,26 +77,27 @@ public class ForgeEventManager {
 	@SubscribeEvent
 	public void onGuiRender( final RenderGameOverlayEvent.Chat ev ) {
 		if( Minecraft.getMinecraft( ).theWorld != null ) {
-			if( Minecraft.getMinecraft( ).currentScreen == null ) {
-				for( final Module e : ManagerModule.getInstance( ).getModules( ) ) {
-					if( e.getActive( ) ) {
-						try {
-							e.onGuiRender( );
-						} catch( final Exception x ) {
-							handleException( e, x );
-						}
+			// if( Minecraft.getMinecraft( ).currentScreen == null ) {
+			for( final Module e : ManagerModule.getInstance( ).getModules( ) ) {
+				if( e.getActive( ) ) {
+					try {
+						e.onGuiRender( );
+					} catch( final Exception x ) {
+						handleException( e, x );
 					}
 				}
-				for( final Window e : ManagerModule.getInstance( ).getModuleByClass( ModuleGui.class )
-						.getGui( ).getWindows( ) ) {
-					// if( e.getVisible( ) ) {
+			}
+			for( final Window e : ManagerModule.getInstance( ).getModuleByClass( ModuleGui.class ).getGui( )
+					.getWindows( ) ) {
+				if( e.getVisible( ) ) {
 					if( e.getPinned( ) ) {
 						// final Point p = calculateMouseLocation( );
 						e.drawWindow( 0, 0 );
 					}
-					// }
 				}
 			}
+			// }
+			CEHUD.drawHUDStuff( );
 		}
 	}
 	

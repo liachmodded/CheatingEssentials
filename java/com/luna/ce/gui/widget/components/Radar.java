@@ -46,6 +46,11 @@ public class Radar extends Component {
 		
 		GuiUtils.drawFilledCircle( 0, 0, 1.5, 0xff000000 );
 		GuiUtils.drawFilledCircle( 0, 0, 1.25, 0xffffffff );
+		
+		final float fov = 70 + ( Minecraft.getMinecraft( ).gameSettings.fovSetting * 40 );
+		
+		GuiUtils.drawWedge( 0, 0, ( fov / 2 ) + 180, getWidth( ), fov, 0x77FFFF00 );
+		
 		GL11.glPopMatrix( );
 		
 		for( final Entity e : entities ) {
@@ -102,9 +107,6 @@ public class Radar extends Component {
 			}
 			GL11.glPopMatrix( );
 		}
-		
-		GuiUtils.drawBorderedRect( getX( ) - 1, getY( ) - 2, getWidth( ) + 4, getHeight( ) + 16, 1.5F,
-				0xaa000000, 0x0 );
 	}
 	
 	@Override

@@ -73,6 +73,8 @@ public abstract class Module implements Command {
 		if( args.length == 1 ) {
 			if( args[ 0 ].toLowerCase( ).equals( getName( ).replaceAll( " ", "" ).toLowerCase( ) ) ) {
 				toggle( );
+				addChatMessage( String.format( "Toggled module %s%s", getActive( ) ? getChatColor( 'a' )
+						: getChatColor( 'c' ), getName( ) ) );
 				return;
 			}
 		} else {
@@ -179,7 +181,8 @@ public abstract class Module implements Command {
 	}
 	
 	protected void addChatMessage( final String text ) {
-		getPlayer( ).addChatMessage( new ChatComponentText( String.format( "[CE] %s", text ) ) );
+		getPlayer( ).addChatMessage(
+				new ChatComponentText( String.format( "\u00a70[\u00a74CE\u00a70]\u00a7r %s", text ) ) );
 	}
 	
 	/**

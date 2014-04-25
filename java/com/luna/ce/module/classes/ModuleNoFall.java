@@ -1,12 +1,14 @@
 package com.luna.ce.module.classes;
 
+import net.minecraft.network.play.client.C03PacketPlayer;
+
 import org.lwjgl.input.Keyboard;
 
 import com.luna.ce.module.EnumModuleType;
 import com.luna.ce.module.Module;
 import com.luna.lib.annotations.Broken;
 
-//@Loadable
+// @Loadable
 @Broken
 public class ModuleNoFall extends Module {
 	
@@ -23,9 +25,7 @@ public class ModuleNoFall extends Module {
 	
 	@Override
 	public void onWorldTick( ) {
-		if( !getPlayer( ).onGround ) {
-			getPlayer( ).onGround = true;
-			getPlayer( ).fallDistance = 0.0F;
-		}
+		getMinecraft( ).getNetHandler( ).addToSendQueue( new C03PacketPlayer( false ) );
+		
 	}
 }

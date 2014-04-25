@@ -43,14 +43,19 @@ public class Config {
 	}
 	
 	private static void initialize( ) {
-		if( !moduleFile.exists( ) || !guiFile.exists( ) ) {
-			CELogger.getInstance( ).log( EnumLogType.IO, "Creating files that were not found..." );
-			if( !moduleFile.exists( ) ) {
-				instance.saveModuleConfig( );
-			}
-			if( !guiFile.exists( ) ) {
-				instance.saveGuiConfig( );
-			}
+		if( initialized ) {
+			return;
+		}
+		CELogger.getInstance( ).log( EnumLogType.IO, "Creating files that were not found..." );
+		if( !moduleFile.exists( ) ) {
+			CELogger.getInstance( ).log( EnumLogType.IO, "Creating module file..." );
+			instance.recreate( moduleFile );
+			instance.saveModuleConfig( );
+		}
+		if( !guiFile.exists( ) ) {
+			CELogger.getInstance( ).log( EnumLogType.IO, "Creating gui file..." );
+			instance.recreate( guiFile );
+			instance.saveGuiConfig( );
 		}
 		instance.loadModuleConfig( );
 		initialized = true;
@@ -94,6 +99,9 @@ public class Config {
 			guiInfo.add( String.format( "%s%s%d%s%d%s%b%s%b\n", e.getText( ), SEP_CHAR, e.getX( ), SEP_CHAR,
 					e.getY( ), SEP_CHAR, e.getPinned( ), SEP_CHAR, e.getExpanded( ) ) );
 		}
+		ioGui.setupWrite( );
+		ioGui.write( guiInfo );
+		ioGui.closeStream( );
 	}
 	
 	public void loadGuiConfig( ) {

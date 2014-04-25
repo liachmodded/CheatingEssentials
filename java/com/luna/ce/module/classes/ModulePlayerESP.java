@@ -2,7 +2,6 @@ package com.luna.ce.module.classes;
 
 import java.util.List;
 
-import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.AxisAlignedBB;
 
@@ -26,11 +25,13 @@ public class ModulePlayerESP extends Module {
 			if( e.equals( getPlayer( ) ) ) {
 				continue;
 			}
-			GLHelper.drawESP( AxisAlignedBB.getBoundingBox( e.posX - RenderManager.renderPosX - 0.5, e.posY
-					- RenderManager.renderPosY, e.posZ - RenderManager.renderPosZ - 0.5,
-					( e.posX - RenderManager.renderPosX ) + 0.5,
-					( ( e.posY - RenderManager.renderPosY ) + 1.62 ),
-					( e.posZ - RenderManager.renderPosZ ) + 0.5 ), 0.1, 0.7, 0.7 );
+			
+			final float halfWidth = e.width / 2.0F;
+			final AxisAlignedBB bb = AxisAlignedBB.getAABBPool( ).getAABB( e.posX - halfWidth, e.posY - 1.62,
+					e.posZ - halfWidth, ( e.posX + halfWidth ), ( e.posY + ( 2 - 1.62 ) ),
+					( e.posZ + halfWidth ) );
+			
+			GLHelper.drawESP( bb, 0.1, 0.7, 0.7 );
 		}
 	}
 	
