@@ -5,6 +5,7 @@ import com.luna.ce.gui.widget.base.Window;
 import com.luna.ce.gui.widget.gui.WindowMenuBase;
 import com.luna.ce.gui.widget.windows.WindowKeybinds;
 import com.luna.ce.gui.widget.windows.WindowModule;
+import com.luna.ce.gui.widget.windows.WindowPotions;
 import com.luna.ce.gui.widget.windows.WindowRadar;
 import com.luna.ce.module.EnumModuleType;
 
@@ -17,6 +18,7 @@ public class CEGuiModule extends WindowMenuBase {
 		}
 		addAWindow( new WindowRadar( 2, yOffset ) );
 		addAWindow( new WindowKeybinds( 2, yOffset ) );
+		addAWindow( new WindowPotions( 2, yOffset ) );
 	}
 	
 	private void addAWindow( final Window w ) {

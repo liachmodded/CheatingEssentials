@@ -24,7 +24,10 @@ public class Slider extends Component {
 		setHeight( 12 );
 		this.incrementValue = incrementValue;
 		format = new DecimalFormat( "#.#" );
-		sliderPercentage = value.getMax( ) / value.getValue( );
+		if( value == null ) {
+			throw new RuntimeException( "Null Value!" );
+		}
+		sliderPercentage = value.getMax( ) / value.getDef( );
 	}
 	
 	@Override
