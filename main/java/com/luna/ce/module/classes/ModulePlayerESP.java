@@ -2,7 +2,7 @@ package com.luna.ce.module.classes;
 
 import com.luna.ce.module.EnumModuleType;
 import com.luna.ce.module.Module;
-import com.luna.ce.render.GLHelper;
+import com.luna.ce.util.gl.GLHelper;
 import com.luna.lib.annotations.Loadable;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.AxisAlignedBB;
@@ -25,7 +25,7 @@ public class ModulePlayerESP extends Module {
             }
 
             final float halfWidth = e.width / 2.0F;
-            final AxisAlignedBB bb = AxisAlignedBB.getAABBPool().getAABB(e.posX - halfWidth, e.posY - 1.62,
+            final AxisAlignedBB bb = AxisAlignedBB.getBoundingBox(e.posX - halfWidth, e.posY - 1.62,
                     e.posZ - halfWidth, (e.posX + halfWidth), (e.posY + (2 - 1.62)),
                     (e.posZ + halfWidth));
 

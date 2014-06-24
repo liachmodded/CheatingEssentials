@@ -1,7 +1,7 @@
 package com.luna.ce.config;
 
 import com.luna.ce.CheatingEssentials;
-import com.luna.ce.gui.widget.base.Window;
+import com.luna.ce.gui.a.AbstractContainer;
 import com.luna.ce.log.CELogger;
 import com.luna.ce.manager.ManagerModule;
 import com.luna.ce.module.Module;
@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+@SuppressWarnings({"unused", "unchecked"})
 public class Config {
     private static final File moduleFile = new File(String.format("%s%smodules.cheat",
             CheatingEssentials.getInstance().getDataDir(),
@@ -92,10 +93,10 @@ public class Config {
         recreate(guiFile);
         final List<String> guiInfo = new ArrayList<String>();
         createGuiFileComments(guiInfo);
-        for (final Window e : ManagerModule.getInstance().getModuleByClass(ModuleGui.class).getGui()
-                .getWindows()) {
-            guiInfo.add(String.format("%s%s%d%s%d%s%b%s%b\n", e.getText(), SEP_CHAR, e.getX(), SEP_CHAR,
-                    e.getY(), SEP_CHAR, e.getPinned(), SEP_CHAR, e.getExpanded()));
+        for (final AbstractContainer e : ManagerModule.getInstance().getModuleByClass(ModuleGui.class).getGui()
+                .getThings()) {
+            guiInfo.add(String.format("%s%s%d%s%d%s%b%s%b\n", e.getTitle().getText(), SEP_CHAR, e.getX(), SEP_CHAR,
+                    e.getY(), SEP_CHAR, e.isPinned(), SEP_CHAR, e.isMinimized()));
         }
         ioGui.setupWrite();
         ioGui.write(guiInfo);
@@ -109,15 +110,15 @@ public class Config {
 
         for (final String e : configLines) {
             final String[] info = e.split(SEP_CHAR);
-            for (final Window w : ManagerModule.getInstance().getModuleByClass(ModuleGui.class).getGui()
-                    .getWindows()) {
+            for (final AbstractContainer w : ManagerModule.getInstance().getModuleByClass(ModuleGui.class).getGui()
+                    .getThings()) {
                 CELogger.getInstance().log(
-                        String.format("Trying %s for input %s...", w.getText(), info[0]));
+                        String.format("Trying %s for input %s...", w.getTitle().getText(), info[0]));
                 if (w.getText().equals(info[0])) {
                     w.setX(Integer.parseInt(info[1]));
                     w.setY(Integer.parseInt(info[2]));
                     w.setPinned(Boolean.parseBoolean(info[3]));
-                    w.setExpanded(Boolean.parseBoolean(info[4]));
+                    w.setMinimized(Boolean.parseBoolean(info[4]));
                     break;
                 }
             }

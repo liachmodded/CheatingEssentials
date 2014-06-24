@@ -1,8 +1,5 @@
 package com.luna.lib.reflection;
 
-import com.luna.lib.loggers.BasicLogger;
-import com.luna.lib.loggers.enums.EnumLogType;
-
 import java.io.File;
 import java.io.IOException;
 import java.net.*;
@@ -11,12 +8,16 @@ import java.util.Enumeration;
 import java.util.List;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
+import java.util.logging.Logger;
 
+@SuppressWarnings("all")
 public class ClassEnumerator {
     /**
      * Singleton instance
      */
     private static volatile ClassEnumerator instance;
+
+    private Logger logger = Logger.getLogger("ClassEnumerator");
 
     /**
      * Returns the singleton instance creates one if the instance is null
@@ -25,7 +26,6 @@ public class ClassEnumerator {
      */
     public static ClassEnumerator getInstance() {
         if (instance == null) {
-            BasicLogger.getInstance().setDebug(true);
             instance = new ClassEnumerator();
         }
         return instance;
@@ -33,7 +33,7 @@ public class ClassEnumerator {
 
     /**
      * Parses a directory for jar files and class files
-     * <p/>
+     * <p>
      * Recurses through if necessary
      *
      * @param directory directory to parse
@@ -45,9 +45,9 @@ public class ClassEnumerator {
             try {
                 final ClassLoader classLoader = new URLClassLoader(new URL[]{
                         file.toURI().toURL()
-                }, /* this */directory.getClass().getClassLoader());
+                }, this.getClass().getClassLoader());
                 if (file.getName().toLowerCase().trim().endsWith(".class")) {
-                    BasicLogger.getInstance().log(EnumLogType.DEBUG, file.getName());
+                    logger.info(file.getName());
                     classes.add(classLoader.loadClass(file.getName().replace(".class", "")
                             .replace("/", ".")));
                 }
@@ -84,8 +84,7 @@ public class ClassEnumerator {
             throw new RuntimeException("No uri for "
                     + classe.getProtectionDomain().getCodeSource().getLocation());
         }
-        BasicLogger.getInstance().log(EnumLogType.DEBUG, "URI: " + uri.toString());
-
+        logger.info("URI: " + uri.toString());
         classes.addAll(processDirectory(new File(uri), ""));
         return classes.toArray(new Class[classes.size()]);
     }
@@ -122,7 +121,7 @@ public class ClassEnumerator {
     /**
      * Processes a directory and retrieves all classes from it and its
      * subdirectories
-     * <p/>
+     * <p>
      * Recurses if necessary
      *
      * @param directory directory file to traverse

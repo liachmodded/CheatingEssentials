@@ -22,8 +22,8 @@ import java.util.Arrays;
 @Mod(modid = CheatingEssentials.MODID, name = CheatingEssentials.NAME, version = CheatingEssentials.VERSION, canBeDeactivated = true)
 public class CheatingEssentials {
     static final String MODID = "cheatingessentials";
-    static final String VERSION = "1.3.1";
-    static final String RELEASE = "Loaf";
+    static final String VERSION = "1.5";
+    static final String RELEASE = "Kitty";
     static final String NAME = "CheatingEssentials";
     @Instance(MODID)
     private static CheatingEssentials instance;

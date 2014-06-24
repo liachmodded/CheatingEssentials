@@ -3,7 +3,8 @@ package com.luna.ce.forge;
 import com.luna.ce.CheatingEssentials;
 import com.luna.ce.config.Config;
 import com.luna.ce.gui.CEHUD;
-import com.luna.ce.gui.widget.base.Window;
+import com.luna.ce.gui.a.AbstractContainer;
+import com.luna.ce.gui.skin.manager.SkinManager;
 import com.luna.ce.manager.ManagerCommand;
 import com.luna.ce.manager.ManagerModule;
 import com.luna.ce.module.Module;
@@ -17,6 +18,7 @@ import net.minecraftforge.client.event.RenderWorldLastEvent;
 import net.minecraftforge.event.ServerChatEvent;
 import org.lwjgl.input.Keyboard;
 
+@SuppressWarnings({"unused", "unchecked"})
 public class ForgeEventManager {
     private final boolean[] keyStates = new boolean[256];
 
@@ -74,7 +76,6 @@ public class ForgeEventManager {
     @SubscribeEvent
     public void onGuiRender(final RenderGameOverlayEvent.Chat ev) {
         if (Minecraft.getMinecraft().theWorld != null) {
-            // if( Minecraft.getMinecraft( ).currentScreen == null ) {
             for (final Module e : ManagerModule.getInstance().getModules()) {
                 if (e.getActive()) {
                     try {
@@ -84,16 +85,12 @@ public class ForgeEventManager {
                     }
                 }
             }
-            for (final Window e : ManagerModule.getInstance().getModuleByClass(ModuleGui.class).getGui()
-                    .getWindows()) {
-                if (e.getVisible()) {
-                    if (e.getPinned()) {
-                        // final Point p = calculateMouseLocation( );
-                        e.drawWindow(0, 0);
+            for (final AbstractContainer e : ManagerModule.getInstance().getModuleByClass(ModuleGui.class).getGui()
+                    .getThings()) {
+                    if (e.isPinned()) {
+                        SkinManager.getInstance().getCurrentSkin().renderContainer(e);
                     }
-                }
             }
-            // }
             CEHUD.drawHUDStuff();
         }
     }
@@ -104,15 +101,7 @@ public class ForgeEventManager {
         }
 
         try {
-            if (Keyboard.getEventKey() > -1) {
-                if (Keyboard.isKeyDown(key) != keyStates[key]) {
-                    return keyStates[key] = !keyStates[key];
-                } else {
-                    return false;
-                }
-            } else {
-                return false;
-            }
+            return Keyboard.getEventKey() > -1 && Keyboard.isKeyDown(key) != keyStates[key] && (keyStates[key] = !keyStates[key]);
         } catch (final IndexOutOfBoundsException e) {
             // Don't understand why this happens, but it does. =|
             // e.printStackTrace( );

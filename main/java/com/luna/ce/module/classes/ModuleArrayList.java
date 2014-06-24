@@ -1,9 +1,9 @@
 package com.luna.ce.module.classes;
 
-import com.luna.ce.gui.GuiUtils;
 import com.luna.ce.manager.ManagerModule;
 import com.luna.ce.module.EnumModuleType;
 import com.luna.ce.module.Module;
+import com.luna.ce.util.gl.GuiUtils;
 import com.luna.lib.annotations.Experimental;
 import com.luna.lib.annotations.Loadable;
 

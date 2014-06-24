@@ -1,7 +1,7 @@
 package com.luna.ce.module.classes;
 
 import com.luna.ce.api.APIModuleSetup;
-import com.luna.ce.gui.CEGuiModule;
+import com.luna.ce.gui.screen.GuiTest;
 import com.luna.ce.module.EnumModuleType;
 import com.luna.ce.module.Module;
 import com.luna.lib.annotations.Loadable;
@@ -10,7 +10,7 @@ import org.lwjgl.input.Keyboard;
 
 @Loadable
 public class ModuleGui extends Module {
-    private CEGuiModule gui;
+    private GuiTest gui;
 
     public ModuleGui() {
         super("Gui", "Opens up the GUI", Keyboard.KEY_Y, EnumModuleType.MISC);
@@ -19,8 +19,8 @@ public class ModuleGui extends Module {
 
     @Override
     public void initializeLater() {
-        gui = new CEGuiModule();
-        gui.loadGuiConfig();
+        gui = new GuiTest();
+        // gui.loadGuiConfig();
     }
 
     @Override
@@ -37,7 +37,7 @@ public class ModuleGui extends Module {
     public void onWorldTick() {
     }
 
-    public CEGuiModule getGui() {
+    public GuiTest getGui() {
         return gui;
     }
 }
