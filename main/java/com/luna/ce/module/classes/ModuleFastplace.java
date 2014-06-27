@@ -1,11 +1,14 @@
 package com.luna.ce.module.classes;
 
+import net.minecraft.client.Minecraft;
+
+import org.lwjgl.input.Keyboard;
+
 import com.luna.ce.module.EnumModuleType;
 import com.luna.ce.module.Module;
-import com.luna.lib.annotations.Loadable;
+import com.luna.lib.annotations.reflection.loading.Loadable;
+
 import cpw.mods.fml.common.ObfuscationReflectionHelper;
-import net.minecraft.client.Minecraft;
-import org.lwjgl.input.Keyboard;
 
 @Loadable
 public class ModuleFastplace extends Module {

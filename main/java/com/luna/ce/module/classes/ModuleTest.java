@@ -1,10 +1,11 @@
 package com.luna.ce.module.classes;
 
+import org.lwjgl.input.Keyboard;
+
 import com.luna.ce.module.EnumModuleType;
 import com.luna.ce.module.Module;
-import com.luna.lib.annotations.Experimental;
-import com.luna.lib.annotations.TestClass;
-import org.lwjgl.input.Keyboard;
+import com.luna.lib.annotations.reflection.loading.Experimental;
+import com.luna.lib.annotations.reflection.loading.TestClass;
 
 // @Loadable
 @Experimental

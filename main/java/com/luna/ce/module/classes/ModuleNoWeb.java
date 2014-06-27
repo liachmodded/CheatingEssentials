@@ -1,15 +1,15 @@
 package com.luna.ce.module.classes;
 
-import com.luna.ce.module.EnumModuleType;
-import com.luna.ce.module.Module;
-import com.luna.lib.annotations.Broken;
-import cpw.mods.fml.common.ObfuscationReflectionHelper;
-import net.minecraft.entity.Entity;
-
 import java.lang.reflect.Field;
 
+import net.minecraft.entity.Entity;
+
+import com.luna.ce.module.EnumModuleType;
+import com.luna.ce.module.Module;
+
+import cpw.mods.fml.common.ObfuscationReflectionHelper;
+
 // @Loadable
-@Broken
 public class ModuleNoWeb extends Module {
 
     public ModuleNoWeb() {

@@ -1,15 +1,14 @@
 package com.luna.ce.module.classes;
 
-import com.luna.ce.module.EnumModuleType;
-import com.luna.ce.module.Module;
-import com.luna.lib.annotations.Broken;
+import java.util.List;
+
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.projectile.EntityArrow;
 
-import java.util.List;
+import com.luna.ce.module.EnumModuleType;
+import com.luna.ce.module.Module;
 
 // @Loadable
-@Broken
 public class ModuleAntiArrow extends Module {
 
     public ModuleAntiArrow() {

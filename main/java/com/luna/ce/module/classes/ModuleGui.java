@@ -1,12 +1,14 @@
 package com.luna.ce.module.classes;
 
+import net.minecraft.client.Minecraft;
+
+import org.lwjgl.input.Keyboard;
+
 import com.luna.ce.api.APIModuleSetup;
 import com.luna.ce.gui.screen.GuiTest;
 import com.luna.ce.module.EnumModuleType;
 import com.luna.ce.module.Module;
-import com.luna.lib.annotations.Loadable;
-import net.minecraft.client.Minecraft;
-import org.lwjgl.input.Keyboard;
+import com.luna.lib.annotations.reflection.loading.Loadable;
 
 @Loadable
 public class ModuleGui extends Module {

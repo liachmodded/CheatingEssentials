@@ -1,10 +1,11 @@
 package com.luna.ce.commands;
 
-import com.luna.lib.interfaces.Command;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.ChatComponentText;
 
-public abstract class ACommand implements Command {
+import com.luna.lib.interfaces.util.ICommand;
+
+public abstract class ACommand implements ICommand {
     private final String name;
 
     public ACommand(final String args) {

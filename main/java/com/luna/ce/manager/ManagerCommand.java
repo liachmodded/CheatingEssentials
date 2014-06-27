@@ -1,26 +1,27 @@
 package com.luna.ce.manager;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import net.minecraft.client.Minecraft;
+import net.minecraft.util.ChatComponentText;
+import net.minecraftforge.event.ServerChatEvent;
+
 import com.luna.ce.CheatingEssentials;
 import com.luna.ce.commands.ACommand;
 import com.luna.ce.commands.classes.CommandBind;
 import com.luna.ce.commands.classes.CommandHelp;
 import com.luna.ce.commands.classes.CommandPrefix;
 import com.luna.ce.module.Module;
-import com.luna.lib.interfaces.Command;
-import net.minecraft.client.Minecraft;
-import net.minecraft.util.ChatComponentText;
-import net.minecraftforge.event.ServerChatEvent;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.luna.lib.interfaces.util.ICommand;
 
 public class ManagerCommand {
     private static ManagerCommand instance;
 
-    private final ArrayList<Command> commands;
+    private final ArrayList<ICommand> commands;
 
     public ManagerCommand() {
-        commands = new ArrayList<Command>();
+        commands = new ArrayList<ICommand>();
         addModuleCommands();
         // And now we come to the annoying part!
         addCommands(new CommandHelp(), new CommandBind(), new CommandPrefix());
@@ -35,11 +36,11 @@ public class ManagerCommand {
 
     private void addModuleCommands() {
         addCommands(ManagerModule.getInstance().getModules()
-                .toArray(new Command[ManagerModule.getInstance().getModules().size()]));
+                .toArray(new ICommand[ManagerModule.getInstance().getModules().size()]));
     }
 
-    private void addCommands(final Command... e) {
-        for (final Command c : e) {
+    private void addCommands(final ICommand... e) {
+        for (final ICommand c : e) {
             commands.add(c);
         }
     }
@@ -62,7 +63,7 @@ public class ManagerCommand {
     }
 
     private void parseCommand(final String[] args) {
-        for (final Command e : commands) {
+        for (final ICommand e : commands) {
             if (e.getName().toLowerCase().replaceAll(" ", "").equals(args[0].toLowerCase())) {
                 try {
                     e.onCommand(args);
@@ -86,7 +87,7 @@ public class ManagerCommand {
 
     public List<String> dumpCommands() {
         final List<String> commands = new ArrayList<String>();
-        for (final Command c : this.commands) {
+        for (final ICommand c : this.commands) {
             String cmd = c.toString();
             // Will change this behavior later
             if (c instanceof Module) {
@@ -112,7 +113,7 @@ public class ManagerCommand {
         return e.toString();
     }
 
-    public List<Command> getCommands() {
+    public List<ICommand> getCommands() {
         return commands;
     }
 }

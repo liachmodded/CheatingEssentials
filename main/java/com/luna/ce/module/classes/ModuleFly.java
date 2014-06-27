@@ -1,9 +1,10 @@
 package com.luna.ce.module.classes;
 
+import org.lwjgl.input.Keyboard;
+
 import com.luna.ce.module.EnumModuleType;
 import com.luna.ce.module.Module;
-import com.luna.lib.annotations.Loadable;
-import org.lwjgl.input.Keyboard;
+import com.luna.lib.annotations.reflection.loading.Loadable;
 
 @Loadable
 public class ModuleFly extends Module {

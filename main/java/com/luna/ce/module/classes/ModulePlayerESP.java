@@ -1,14 +1,16 @@
 package com.luna.ce.module.classes;
 
+import java.util.List;
+
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.util.AxisAlignedBB;
+
+import org.lwjgl.input.Keyboard;
+
 import com.luna.ce.module.EnumModuleType;
 import com.luna.ce.module.Module;
 import com.luna.ce.util.gl.GLHelper;
-import com.luna.lib.annotations.Loadable;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.AxisAlignedBB;
-import org.lwjgl.input.Keyboard;
-
-import java.util.List;
+import com.luna.lib.annotations.reflection.loading.Loadable;
 
 @Loadable
 public class ModulePlayerESP extends Module {

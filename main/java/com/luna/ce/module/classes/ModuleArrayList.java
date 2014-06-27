@@ -4,8 +4,8 @@ import com.luna.ce.manager.ManagerModule;
 import com.luna.ce.module.EnumModuleType;
 import com.luna.ce.module.Module;
 import com.luna.ce.util.gl.GuiUtils;
-import com.luna.lib.annotations.Experimental;
-import com.luna.lib.annotations.Loadable;
+import com.luna.lib.annotations.reflection.loading.Experimental;
+import com.luna.lib.annotations.reflection.loading.Loadable;
 
 @Loadable
 @Experimental

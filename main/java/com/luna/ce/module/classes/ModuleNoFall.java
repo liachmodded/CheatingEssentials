@@ -1,13 +1,13 @@
 package com.luna.ce.module.classes;
 
-import com.luna.ce.module.EnumModuleType;
-import com.luna.ce.module.Module;
-import com.luna.lib.annotations.Broken;
 import net.minecraft.network.play.client.C03PacketPlayer;
+
 import org.lwjgl.input.Keyboard;
 
+import com.luna.ce.module.EnumModuleType;
+import com.luna.ce.module.Module;
+
 // @Loadable
-@Broken
 public class ModuleNoFall extends Module {
 
     public ModuleNoFall() {

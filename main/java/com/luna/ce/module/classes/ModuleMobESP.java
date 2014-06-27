@@ -1,15 +1,16 @@
 package com.luna.ce.module.classes;
 
-import com.luna.ce.module.EnumModuleType;
-import com.luna.ce.module.Module;
-import com.luna.ce.util.gl.GLHelper;
-import com.luna.lib.annotations.Loadable;
+import java.util.List;
+
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.monster.EntitySlime;
 import net.minecraft.util.AxisAlignedBB;
 
-import java.util.List;
+import com.luna.ce.module.EnumModuleType;
+import com.luna.ce.module.Module;
+import com.luna.ce.util.gl.GLHelper;
+import com.luna.lib.annotations.reflection.loading.Loadable;
 
 @Loadable
 public class ModuleMobESP extends Module {

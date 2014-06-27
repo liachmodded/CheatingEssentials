@@ -1,16 +1,24 @@
 package com.luna.ce.module.classes;
 
+import java.util.LinkedHashMap;
+import java.util.List;
+
+import net.minecraft.block.Block;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.tileentity.TileEntityBeacon;
+import net.minecraft.tileentity.TileEntityChest;
+import net.minecraft.tileentity.TileEntityEnchantmentTable;
+import net.minecraft.tileentity.TileEntityEndPortal;
+import net.minecraft.tileentity.TileEntityEnderChest;
+import net.minecraft.tileentity.TileEntityMobSpawner;
+import net.minecraft.util.AxisAlignedBB;
+
+import org.lwjgl.input.Keyboard;
+
 import com.luna.ce.module.EnumModuleType;
 import com.luna.ce.module.Module;
 import com.luna.ce.util.gl.GLHelper;
-import com.luna.lib.annotations.Loadable;
-import net.minecraft.block.Block;
-import net.minecraft.tileentity.*;
-import net.minecraft.util.AxisAlignedBB;
-import org.lwjgl.input.Keyboard;
-
-import java.util.LinkedHashMap;
-import java.util.List;
+import com.luna.lib.annotations.reflection.loading.Loadable;
 
 @Loadable
 public class ModuleChestESP extends Module {

@@ -1,12 +1,14 @@
 package com.luna.ce.module.classes;
 
-import com.luna.ce.module.EnumModuleType;
-import com.luna.ce.module.Module;
-import com.luna.lib.annotations.Loadable;
+import java.util.LinkedList;
+
 import net.minecraft.client.renderer.entity.RenderManager;
+
 import org.lwjgl.opengl.GL11;
 
-import java.util.LinkedList;
+import com.luna.ce.module.EnumModuleType;
+import com.luna.ce.module.Module;
+import com.luna.lib.annotations.reflection.loading.Loadable;
 
 @Loadable
 public class ModuleBreadcrumbs extends Module {

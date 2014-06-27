@@ -14,7 +14,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-@SuppressWarnings({"unused", "unchecked"})
+@SuppressWarnings("unchecked")
 public class Config {
     private static final File moduleFile = new File(String.format("%s%smodules.cheat",
             CheatingEssentials.getInstance().getDataDir(),
@@ -95,7 +95,7 @@ public class Config {
         createGuiFileComments(guiInfo);
         for (final AbstractContainer e : ManagerModule.getInstance().getModuleByClass(ModuleGui.class).getGui()
                 .getThings()) {
-            guiInfo.add(String.format("%s%s%d%s%d%s%b%s%b\n", e.getTitle().getText(), SEP_CHAR, e.getX(), SEP_CHAR,
+            guiInfo.add(String.format("%s%s%s%s%s%s%b%s%b\n", e.getTitle().getText(), SEP_CHAR, e.getX(), SEP_CHAR,
                     e.getY(), SEP_CHAR, e.isPinned(), SEP_CHAR, e.isMinimized()));
         }
         ioGui.setupWrite();

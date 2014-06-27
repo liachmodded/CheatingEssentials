@@ -1,15 +1,16 @@
 package com.luna.ce.commands.classes;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import net.minecraft.util.StringUtils;
+
 import com.luna.ce.CheatingEssentials;
 import com.luna.ce.commands.ACommand;
 import com.luna.ce.manager.ManagerCommand;
 import com.luna.ce.manager.ManagerModule;
 import com.luna.ce.module.Module;
-import com.luna.lib.interfaces.Command;
-import net.minecraft.util.StringUtils;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.luna.lib.interfaces.util.ICommand;
 
 public class CommandHelp extends ACommand {
     /**
@@ -74,7 +75,7 @@ public class CommandHelp extends ACommand {
                 try {
                     // Everything else's failed, so just blindly try EVERY
                     // command we've got
-                    for (final Command c : ManagerCommand.getInstance().getCommands()) {
+                    for (final ICommand c : ManagerCommand.getInstance().getCommands()) {
                         if (c.getName().toLowerCase().replaceAll(" ", "")
                                 .equals(args[1].toLowerCase())) {
                             String cmd = c.toString();

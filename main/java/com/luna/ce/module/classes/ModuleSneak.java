@@ -1,9 +1,10 @@
 package com.luna.ce.module.classes;
 
+import net.minecraft.client.settings.KeyBinding;
+
 import com.luna.ce.module.EnumModuleType;
 import com.luna.ce.module.Module;
-import com.luna.lib.annotations.Loadable;
-import net.minecraft.client.settings.KeyBinding;
+import com.luna.lib.annotations.reflection.loading.Loadable;
 
 @Loadable
 public class ModuleSneak extends Module {

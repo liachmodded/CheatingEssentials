@@ -1,8 +1,5 @@
 package com.luna.ce.module;
 
-import com.luna.ce.CheatingEssentials;
-import com.luna.ce.config.Config;
-import com.luna.lib.interfaces.Command;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.multiplayer.WorldClient;
@@ -12,7 +9,11 @@ import net.minecraft.client.settings.GameSettings;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ChatComponentText;
 
-public abstract class Module implements Command {
+import com.luna.ce.CheatingEssentials;
+import com.luna.ce.config.Config;
+import com.luna.lib.interfaces.util.ICommand;
+
+public abstract class Module implements ICommand {
     private final String name;
     private final String desc;
     private final String author;
@@ -106,10 +107,14 @@ public abstract class Module implements Command {
         active = !active;
         if (getWorld() != null) {
             Config.getInstance().saveModuleConfig();
-            if (active) {
-                onEnable();
-            } else {
-                onDisable();
+            try {
+	            if (active) {
+	                onEnable();
+	            } else {
+	                onDisable();
+	            }
+            } catch(Exception e) {
+            	e.printStackTrace();
             }
         }
     }
@@ -125,7 +130,6 @@ public abstract class Module implements Command {
         this.active = active;
     }
 
-    @Override
     public String getName() {
         return name;
     }
@@ -186,7 +190,6 @@ public abstract class Module implements Command {
     /**
      * The "unused" variable is actually used to check if the array index exists
      */
-    @SuppressWarnings("unused")
     protected <T> boolean testArrayItem(final T[] array, final int index) {
         try {
             final T testItem = array[index];
@@ -204,7 +207,6 @@ public abstract class Module implements Command {
         help = newHelp;
     }
 
-    @Override
     public String getSyntax() {
         return getName();
     }

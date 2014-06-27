@@ -56,6 +56,7 @@ import java.util.WeakHashMap;
  *                                                                           .Entry("B")
  * </pre>
  */
+@SuppressWarnings("unchecked")
 public class StringCache {
     /**
      * Vertical adjustment (in pixels * 2) to string position because Minecraft

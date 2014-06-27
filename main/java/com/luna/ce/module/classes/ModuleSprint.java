@@ -1,10 +1,12 @@
 package com.luna.ce.module.classes;
 
+import net.minecraft.block.material.Material;
+
+import org.lwjgl.input.Keyboard;
+
 import com.luna.ce.module.EnumModuleType;
 import com.luna.ce.module.Module;
-import com.luna.lib.annotations.Loadable;
-import net.minecraft.block.material.Material;
-import org.lwjgl.input.Keyboard;
+import com.luna.lib.annotations.reflection.loading.Loadable;
 
 @Loadable
 public class ModuleSprint extends Module {

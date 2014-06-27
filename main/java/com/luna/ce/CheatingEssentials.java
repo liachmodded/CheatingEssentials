@@ -1,11 +1,13 @@
 package com.luna.ce;
 
 import com.luna.ce.api.APIModuleSetup;
+import com.luna.ce.config.Config;
 import com.luna.ce.forge.ForgeEventManager;
 import com.luna.ce.log.CELogger;
 import com.luna.ce.manager.ManagerCommand;
 import com.luna.ce.manager.ManagerModule;
 import com.luna.lib.loggers.enums.EnumLogType;
+
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
@@ -72,6 +74,8 @@ public class CheatingEssentials {
         APIModuleSetup.setupModules();
         CELogger.getInstance().log("Loading commands...");
         ManagerCommand.getInstance();
+        // Load config again, because I apparently broke it...
+        Config.getInstance();
     }
 
     public String getCommandPrefix() {
