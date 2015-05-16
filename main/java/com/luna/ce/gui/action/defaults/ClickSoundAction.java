@@ -14,7 +14,7 @@ public class ClickSoundAction<T extends AbstractComponent> implements MouseDownA
                 .getSoundHandler()
                 .playSound(
                         PositionedSoundRecord
-                                .func_147674_a(new ResourceLocation("gui.button.press"), 1.0F)
+                                .create(new ResourceLocation("gui.button.press"), 1.0F)
                 );
     }
 }

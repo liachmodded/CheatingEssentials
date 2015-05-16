@@ -32,7 +32,7 @@ public class ModuleArrayList extends Module {
                     continue;
                 }
                 if (e.getActive()) {
-                    getFontRenderer().drawStringWithShadow(e.getName(),
+                    getFontRenderer().drawString(e.getName(),
                             GuiUtils.getWidth() - getFontRenderer().getStringWidth(e.getName()) - 2,
                             offset += getFontRenderer().FONT_HEIGHT + 1, e.getType().getColor());
                 }

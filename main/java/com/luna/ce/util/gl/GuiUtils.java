@@ -7,6 +7,7 @@ import com.luna.ce.util.MathUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.WorldRenderer;
 
 import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.opengl.GL13.GL_MULTISAMPLE;
@@ -61,15 +62,15 @@ public final class GuiUtils {
         prepareColorDraw();
         color(col);
 
-        final Tessellator tess = Tessellator.instance;
-        tess.startDrawingQuads();
+        final WorldRenderer wr = Tessellator.getInstance().getWorldRenderer();
+        wr.startDrawingQuads();
 
-        tess.addVertex(x, y, 0);
-        tess.addVertex(x, y + h, 0);
-        tess.addVertex(x + w, y + h, 0);
-        tess.addVertex(x + w, y, 0);
+        wr.addVertex(x, y, 0);
+        wr.addVertex(x, y + h, 0);
+        wr.addVertex(x + w, y + h, 0);
+        wr.addVertex(x + w, y, 0);
 
-        tess.draw();
+        wr.draw();
 
         endColorDraw();
     }
@@ -102,12 +103,12 @@ public final class GuiUtils {
         final float var13 = ((col2 >> 8) & 255) / 255.0F;
         final float var14 = (col2 & 255) / 255.0F;
         prepareColorDraw();
-        final Tessellator var15 = Tessellator.instance;
+        final WorldRenderer var15 = Tessellator.getInstance().getWorldRenderer();
         var15.startDrawingQuads();
-        var15.setColorRGBA_F(var8, var9, var10, var7);
+        var15.func_178960_a(var8, var9, var10, var7);
         var15.addVertex(x + w, y, 0);
         var15.addVertex(x, y, 0);
-        var15.setColorRGBA_F(var12, var13, var14, var11);
+        var15.func_178960_a(var12, var13, var14, var11);
         var15.addVertex(x, y + h, 0);
         var15.addVertex(x + w, y + h, 0);
         var15.draw();
@@ -223,7 +224,7 @@ public final class GuiUtils {
         glPushMatrix();
         prepareColorDraw();
         color(col);
-        Tessellator tess = Tessellator.instance;
+        WorldRenderer tess = Tessellator.getInstance().getWorldRenderer();
         tess.startDrawing(GL_TRIANGLES);
         tess.addVertex(x, y + (a / 2), 0);
         tess.addVertex(x + (a / 2), y - (a / 2), 0);
@@ -245,7 +246,7 @@ public final class GuiUtils {
         prepareColorDraw();
         color(c);
 
-        Tessellator tess = Tessellator.instance;
+        WorldRenderer tess = Tessellator.getInstance().getWorldRenderer();
 
         tess.startDrawing(GL_POLYGON);
         for (int i = 0; i <= MathUtil.wrapTo(degrees, 1, 360); i++) {
@@ -263,7 +264,7 @@ public final class GuiUtils {
 
         glLineWidth(width);
 
-        Tessellator tess = Tessellator.instance;
+        WorldRenderer tess = Tessellator.getInstance().getWorldRenderer();
 
         tess.startDrawing(GL_LINE_LOOP);
         for (int i = 0; i <= MathUtil.wrapTo(degrees, 1, 360); i++) {

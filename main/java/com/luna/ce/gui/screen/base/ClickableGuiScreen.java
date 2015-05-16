@@ -11,6 +11,7 @@ import net.minecraft.client.gui.GuiMainMenu;
 
 import org.lwjgl.input.Keyboard;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
@@ -53,7 +54,7 @@ public abstract class ClickableGuiScreen<C extends AbstractComponent> extends Is
     }
 
     @Override
-    protected void keyTyped(final char ch, final int key) {
+    protected void keyTyped(final char ch, final int key) throws IOException {
         super.keyTyped(ch, key);
         if ((key == Keyboard.KEY_ESCAPE) && (Minecraft.getMinecraft().theWorld != null)) {
             Minecraft.getMinecraft().displayGuiScreen(null);
@@ -68,7 +69,7 @@ public abstract class ClickableGuiScreen<C extends AbstractComponent> extends Is
     }
 
     @Override
-    protected void mouseClicked(final int par1, final int par2, final int par3) {
+    protected void mouseClicked(final int par1, final int par2, final int par3) throws IOException {
         super.mouseClicked(par1, par2, par3);
         for (C e : things) {
             if (e.isMouseOver()) {
@@ -89,8 +90,8 @@ public abstract class ClickableGuiScreen<C extends AbstractComponent> extends Is
     }
 
     @Override
-    protected void mouseMovedOrUp(final int par1, final int par2, final int par3) {
-        super.mouseMovedOrUp(par1, par2, par3);
+    protected void mouseReleased(final int par1, final int par2, final int par3) {
+        super.mouseReleased(par1, par2, par3);
         for (C e : things) {
             if (e.isFocused()) {
                 e.mouseUp(par3);

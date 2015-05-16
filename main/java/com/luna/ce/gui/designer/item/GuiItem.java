@@ -16,6 +16,10 @@ public class GuiItem extends BasicWidget {
     private boolean dragging = false;
     private double xOffset, yOffset, prevX, prevY;
 
+    public boolean isDragging() {
+        return dragging;
+    }
+
     @SuppressWarnings("unchecked")
     public GuiItem(String text) {
         super("", "label");

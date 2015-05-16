@@ -13,6 +13,7 @@ import net.minecraft.tileentity.TileEntityEnderChest;
 import net.minecraft.tileentity.TileEntityMobSpawner;
 import net.minecraft.util.AxisAlignedBB;
 
+import net.minecraft.util.BlockPos;
 import org.lwjgl.input.Keyboard;
 
 import com.luna.ce.module.EnumModuleType;
@@ -56,18 +57,18 @@ public class ModuleChestESP extends Module {
     public void onWorldRender() {
         for (final TileEntity e : (List<TileEntity>) getWorld().loadedTileEntityList) {
             if (acceptedTileEntities.containsKey(e.getClass())) {
-                final int tx = e.xCoord;
-                final int ty = e.yCoord;
-                final int tz = e.zCoord;
+                final int tx = e.getPos().getX();
+                final int ty = e.getPos().getY();
+                final int tz = e.getPos().getZ();
 
                 final double[] colors = e.getBlockType().equals(
                         Block.getBlockFromName("minecraft:trapped_chest")) ? new double[]{
                         1.0, 0.2, 0.2
                 } : acceptedTileEntities.get(e.getClass());
 
-                if (getWorld().blockExists(tx, ty, tz)) {
+                if (getWorld().getChunkProvider().chunkExists(tx,tz)) {
                     GLHelper.drawESP(
-                            AxisAlignedBB.getBoundingBox(tx, ty, tz, (tx) + 1, (ty) + 1, (tz) + 1),
+                            AxisAlignedBB.fromBounds(tx, ty, tz, (tx) + 1, (ty) + 1, (tz) + 1),
                             colors[0], colors[1], colors[2]);
                 }
             }

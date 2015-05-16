@@ -15,7 +15,7 @@ import org.lwjgl.opengl.GL11;
 import java.awt.geom.Rectangle2D;
 
 public class SkinLight extends AbstractSkin {
-    private final FontRenderer fontRenderer = Minecraft.getMinecraft().fontRenderer;
+    private final FontRenderer fontRenderer = Minecraft.getMinecraft().fontRendererObj;
     private final StringCache droidSansFont;
 
     {
@@ -66,7 +66,7 @@ public class SkinLight extends AbstractSkin {
                 fontRenderer.drawString("-", (int) (q.getX() + q.getWidth() / 2) - fontRenderer.FONT_HEIGHT / 4,
                         (int) (q.getY() + q.getHeight() / 2) - fontRenderer.FONT_HEIGHT / 2 + 1 -
                                 (component.isMinimized() ? 0 : 1),
-                        component.mouseOverMinimize() || component.isMinimized() ? 0xFF424242 : 0xFF858585, false);
+                        component.mouseOverMinimize() || component.isMinimized() ? 0xFF424242 : 0xFF858585);
             }
 
             // Pin area
@@ -78,7 +78,7 @@ public class SkinLight extends AbstractSkin {
                 fontRenderer.drawString("#", (int) (r.getX() + r.getWidth() / 2) - fontRenderer.FONT_HEIGHT / 4,
                         (int) (r.getY() + r.getHeight() / 2) - fontRenderer.FONT_HEIGHT / 2 + 1 -
                                 (component.isMinimized() ? 0 : 1),
-                        component.mouseOverPin() || component.isPinned() ? 0xFF424242 : 0xFF858585, false);
+                        component.mouseOverPin() || component.isPinned() ? 0xFF424242 : 0xFF858585);
             }
 
             final Rectangle2D.Double s = component.getScrollArea();

@@ -14,6 +14,7 @@ import net.minecraft.client.gui.GuiTextField;
 import org.lwjgl.input.Keyboard;
 
 import java.awt.geom.Rectangle2D;
+import java.io.IOException;
 
 public class GuiDesigner extends ClickableGuiScreen<GuiItem> {
     private GuiTextField textbox;
@@ -24,7 +25,7 @@ public class GuiDesigner extends ClickableGuiScreen<GuiItem> {
     @SuppressWarnings("unchecked")
     public void initGui() {
         Keyboard.enableRepeatEvents(true);
-        textbox = new GuiTextField(this.fontRendererObj, 4, 4, 100, 12);
+        textbox = new GuiTextField(0, this.fontRendererObj, 4, 4, 100, 12);
         buttonList.add(new GuiButton(0, 4, GuiUtils.getHeight() - GuiUtils.stringCache.getStringHeight() - 32, 100, 20, "Create"));
         trash = new Rectangle2D.Double(4, GuiUtils.getHeight() - GuiUtils.stringCache.getStringHeight() - 10, 100,
                 GuiUtils.stringCache.getStringHeight() + 8);
@@ -80,7 +81,7 @@ public class GuiDesigner extends ClickableGuiScreen<GuiItem> {
     }
 
     @Override
-    protected void keyTyped(final char ch, final int key) {
+    protected void keyTyped(final char ch, final int key) throws IOException {
         super.keyTyped(ch, key);
         if ((key == Keyboard.KEY_ESCAPE) && (Minecraft.getMinecraft().theWorld != null)) {
             Minecraft.getMinecraft().displayGuiScreen(null);
@@ -104,7 +105,11 @@ public class GuiDesigner extends ClickableGuiScreen<GuiItem> {
 
     @Override
     protected void mouseClicked(int par1, int par2, int par3) {
-        super.mouseClicked(par1, par2, par3);
+        try {
+            super.mouseClicked(par1, par2, par3);
+        } catch (IOException ex) {
+
+        }
         textbox.mouseClicked(par1, par2, par3);
         if (container.isMouseOver()) {
             container.focus();
@@ -115,8 +120,8 @@ public class GuiDesigner extends ClickableGuiScreen<GuiItem> {
     }
 
     @Override
-    protected void mouseMovedOrUp(final int par1, final int par2, final int par3) {
-        super.mouseMovedOrUp(par1, par2, par3);
+    protected void mouseReleased(final int par1, final int par2, final int par3) {
+        super.mouseReleased(par1, par2, par3);
         if (container.isFocused()) {
             container.mouseUp(par3);
         }
