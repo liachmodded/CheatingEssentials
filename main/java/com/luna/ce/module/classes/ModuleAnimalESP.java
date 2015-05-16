@@ -23,7 +23,7 @@ public class ModuleAnimalESP extends Module {
     public void onWorldRender() {
         for (final Entity e : (List<Entity>) getWorld().getLoadedEntityList()) {
             final float halfWidth = e.width / 2.0F;
-            final AxisAlignedBB bb = AxisAlignedBB.getBoundingBox(e.posX - halfWidth, e.posY, e.posZ - halfWidth, (e.posX + halfWidth),
+            final AxisAlignedBB bb = AxisAlignedBB.fromBounds(e.posX - halfWidth, e.posY, e.posZ - halfWidth, (e.posX + halfWidth),
                             (e.posY + e.height), (e.posZ + halfWidth));
 
             if ((e instanceof EntityAnimal)) {

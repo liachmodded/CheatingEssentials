@@ -13,7 +13,7 @@ import org.lwjgl.opengl.GL11;
 import java.awt.geom.Rectangle2D;
 
 public class SkinNumixish extends AbstractSkin {
-    private final FontRenderer fontRenderer = Minecraft.getMinecraft().fontRenderer;
+    private final FontRenderer fontRenderer = Minecraft.getMinecraft().fontRendererObj;
 
     @SuppressWarnings("FieldCanBeLocal")
     private final ComponentRenderer windowRenderer = new ComponentRenderer<AbstractContainer>() {
@@ -28,7 +28,7 @@ public class SkinNumixish extends AbstractSkin {
                     0xFF000000);
             if (q.getX() != 0 && q.getWidth() != 0) {
                 fontRenderer.drawString(component.isMinimized() ? "+" : "-", (int) (q.getX() + q.getWidth() / 2) - fontRenderer.FONT_HEIGHT / 4,
-                        (int) (q.getY() + q.getHeight() / 2) - fontRenderer.FONT_HEIGHT / 2, 0xFFFFFFFF, false);
+                        (int) (q.getY() + q.getHeight() / 2) - fontRenderer.FONT_HEIGHT / 2, 0xFFFFFFFF);
             }
 
             final Rectangle2D.Double r = component.getPinArea();
@@ -36,7 +36,7 @@ public class SkinNumixish extends AbstractSkin {
                     component.mouseOverPin() || component.isPinned() ? 0xFF222222 : 0xFF777777, 0xFF000000);
             if (r.getX() != 0 && r.getWidth() != 0) {
                 fontRenderer.drawString(component.isPinned() ? "#" : "O", (int) (r.getX() + r.getWidth() / 2) - fontRenderer.FONT_HEIGHT / 4,
-                        (int) (r.getY() + r.getHeight() / 2) - fontRenderer.FONT_HEIGHT / 2, 0xFFFFFFFF, false);
+                        (int) (r.getY() + r.getHeight() / 2) - fontRenderer.FONT_HEIGHT / 2, 0xFFFFFFFF);
             }
 
             final Rectangle2D.Double s = component.getScrollArea();

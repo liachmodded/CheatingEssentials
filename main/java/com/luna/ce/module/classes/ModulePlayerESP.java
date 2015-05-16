@@ -27,7 +27,7 @@ public class ModulePlayerESP extends Module {
             }
 
             final float halfWidth = e.width / 2.0F;
-            final AxisAlignedBB bb = AxisAlignedBB.getBoundingBox(e.posX - halfWidth, e.posY - 1.62,
+            final AxisAlignedBB bb = AxisAlignedBB.fromBounds(e.posX - halfWidth, e.posY - 1.62,
                     e.posZ - halfWidth, (e.posX + halfWidth), (e.posY + (2 - 1.62)),
                     (e.posZ + halfWidth));
 

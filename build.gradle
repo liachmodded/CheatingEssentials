@@ -1,0 +1,64 @@
+buildscript {
+    repositories {
+        mavenCentral()
+        maven {
+            name = "forge"
+            url = "http://files.minecraftforge.net/maven"
+        }
+        maven {
+            name = "sonatype"
+            url = "https://oss.sonatype.org/content/repositories/snapshots/"
+        }
+    }
+		
+    dependencies {
+	    classpath 'net.minecraftforge.gradle:ForgeGradle:1.2-SNAPSHOT'
+    }
+}
+
+apply plugin: 'forge'
+
+version = "?"
+group= "?"
+archivesBaseName = "?"
+
+repositories {
+}
+
+dependencies {
+    compile "org.projectlombok:lombok:1.16.4"
+}
+
+minecraft {
+    version = "1.8-11.14.1.1404"
+    runDir = "eclipse"
+}
+
+configurations { 
+     api 
+     compile.extendsFrom api 
+}
+
+sourceSets {
+    main {
+        java {
+            srcDir 'main/java'
+        }
+        resources {
+            srcDir 'main/resources'
+        }
+    }
+}
+
+processResources
+{
+    inputs.property "version", project.version
+    inputs.property "mcversion", project.minecraft.version
+    from (sourceSets.main.resources.srcDirs) {
+        include 'mcmod.info'
+        expand 'version' : project.version, 'mcversion' : project.minecraft.version
+    }
+    from (sourceSets.main.resources.srcDirs) {
+        exclude 'mcmod.info'
+    }
+}

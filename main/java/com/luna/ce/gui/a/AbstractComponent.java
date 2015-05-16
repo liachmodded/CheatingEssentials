@@ -26,12 +26,32 @@ public abstract class AbstractComponent {
     private AbstractContainer parent;
     private String text;
 
+    public String getText() {
+        return text;
+    }
+
+    public void setText(String st) {
+        text = st;
+    }
+
+    public List<IGuiAction<?>> getActions() {
+        return actions;
+    }
+
     public double getX() {
         return area.getX();
     }
 
     public void setX(double e) {
         area.x = e;
+    }
+
+    public void setParent(AbstractContainer par) {
+        parent = par;
+    }
+
+    public AbstractContainer getParent() {
+        return parent;
     }
 
     public double getY() {
@@ -56,6 +76,14 @@ public abstract class AbstractComponent {
 
     public void setHeight(double e) {
         area.height = e;
+    }
+
+    public boolean getFocused() {
+        return focused;
+    }
+
+    public void setFocused(boolean focused) {
+        this.focused = focused;
     }
 
     public String getTagValue(final String tag) {
@@ -119,9 +147,9 @@ public abstract class AbstractComponent {
 
     public final boolean isMouseOver() {
         final Point e = calculateMouseLocation();
-        if (getParent() != null) {
-            return area.contains(e) && getParent().getScrollComponents().contains(e);
-        }
+        //if (getParent() != null) {
+        //    return area.contains(e) && getParent().getScrollComponents().contains(e);
+        //}
         return area.contains(e);
     }
 
@@ -194,5 +222,9 @@ public abstract class AbstractComponent {
     }
 
     public void initialize() {
+    }
+
+    public boolean isFocused() {
+        return focused;
     }
 }

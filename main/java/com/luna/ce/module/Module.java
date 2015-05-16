@@ -179,7 +179,7 @@ public abstract class Module implements ICommand {
     }
 
     protected FontRenderer getFontRenderer() {
-        return getMinecraft().fontRenderer;
+        return getMinecraft().fontRendererObj;
     }
 
     protected void addChatMessage(final String text) {

@@ -2,6 +2,7 @@ package com.luna.ce.util.gl;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.WorldRenderer;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.AxisAlignedBB;
@@ -21,11 +22,11 @@ public final class GLHelper {
     }
 
     public static AxisAlignedBB getOffsetBB(double x, double y, double z, double l, double h, double w) {
-        return AxisAlignedBB.getBoundingBox(x, y, z, x + l, y + h, z + w);
+        return AxisAlignedBB.fromBounds(x, y, z, x + l, y + h, z + w);
     }
 
     public static void drawESP(final AxisAlignedBB bb, final double r, final double g, final double b) {
-        Minecraft.getMinecraft().entityRenderer.disableLightmap(0);
+        //Minecraft.getMinecraft().entityRenderer.disableLightmap(0);
         glPushMatrix();
         glEnable(GL_BLEND);
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -47,12 +48,12 @@ public final class GLHelper {
         glDepthMask(true);
         glDisable(GL_BLEND);
         glPopMatrix();
-        Minecraft.getMinecraft().entityRenderer.enableLightmap(0);
+        Minecraft.getMinecraft().entityRenderer.enableLightmap();
     }
 
     public static void drawLines(final double x1, final double y1, final double z1, final double x2,
                                  final double y2, final double z2, final float width, int color) {
-        Minecraft.getMinecraft().entityRenderer.disableLightmap(0);
+        //Minecraft.getMinecraft().entityRenderer.disableLightmap(0);
         glPushMatrix();
         glEnable(GL_BLEND);
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -63,10 +64,11 @@ public final class GLHelper {
         glDisable(GL_DEPTH_TEST);
         glDepthMask(false);
         GuiUtils.color(color);
-        final Tessellator t = Tessellator.instance;
-        t.startDrawing(GL_LINES);
-        t.addVertex(x1, y1, z1);
-        t.addVertex(x2, y2, z2);
+        final Tessellator t = Tessellator.getInstance();
+        final WorldRenderer wr = t.getWorldRenderer();
+        wr.startDrawing(GL_LINES);
+        wr.addVertex(x1, y1, z1);
+        wr.addVertex(x2, y2, z2);
         t.draw();
         glDisable(GL_LINE_SMOOTH);
         glEnable(GL_TEXTURE_2D);
@@ -80,6 +82,7 @@ public final class GLHelper {
 
     public static void drawBoundingBox(final AxisAlignedBB axisalignedbb) {
         final Tessellator tessellator = Tessellator.instance;
+        final WorldRenderer wr = tessellator.getWorldRenderer();
         tessellator.startDrawingQuads(); // starts x
         tessellator.addVertex(axisalignedbb.minX - RenderManager.renderPosX, axisalignedbb.minY
                 - RenderManager.renderPosY, axisalignedbb.minZ - RenderManager.renderPosZ);

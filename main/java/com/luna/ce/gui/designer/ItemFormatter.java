@@ -2,7 +2,7 @@ package com.luna.ce.gui.designer;
 
 import com.luna.lib.reflection.ReflectionHelper;
 import net.minecraft.client.Minecraft;
-import net.minecraft.util.Direction;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.MathHelper;
 
 import static net.minecraft.client.Minecraft.getMinecraft;
@@ -28,7 +28,7 @@ public class ItemFormatter {
                         // .replaceAll("(?i)\\{t\\}", "") // TODO Come back to this one - World time
                 .replaceAll("(?i)\\{i\\}", itemDisplayName)
                 .replaceAll("(?i)\\{d\\}", unlocalizedName)
-                .replaceAll("(?i)\\{e\\}", Direction.directions[heading])
+                .replaceAll("(?i)\\{e\\}", EnumFacing.VALUES[heading].getName2())
                 .replaceAll("(?i)\\{s\\}", ReflectionHelper.getObfuscatedFieldValue(Minecraft.class, getMinecraft(), "debugFPS").toString());
     }
 }

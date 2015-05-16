@@ -7,7 +7,7 @@ import net.minecraft.entity.Entity;
 import com.luna.ce.module.EnumModuleType;
 import com.luna.ce.module.Module;
 
-import cpw.mods.fml.common.ObfuscationReflectionHelper;
+import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 
 // @Loadable
 public class ModuleNoWeb extends Module {

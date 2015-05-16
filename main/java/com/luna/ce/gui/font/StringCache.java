@@ -4,6 +4,7 @@
 package com.luna.ce.gui.font;
 
 import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.WorldRenderer;
 import org.lwjgl.opengl.GL11;
 
 import java.awt.*;
@@ -305,9 +306,10 @@ public class StringCache {
 		 * Using the Tessellator to queue up data in a vertex array and then
 		 * draw all at once should be faster than immediate mode
 		 */
-        final Tessellator tessellator = Tessellator.instance;
-        tessellator.startDrawingQuads();
-        tessellator.setColorRGBA((color >> 16) & 0xff, (color >> 8) & 0xff, color & 0xff,
+        final Tessellator tessellator = Tessellator.getInstance();
+        final WorldRenderer wr = tessellator.getWorldRenderer();
+        wr.startDrawingQuads();
+        wr.func_178994_b((color >> 16) & 0xff, (color >> 8) & 0xff, color & 0xff,
                 (color >> 24) & 0xff);
 
 		/*
@@ -365,8 +367,8 @@ public class StringCache {
 			 */
             if (boundTextureName != texture.textureName) {
                 tessellator.draw();
-                tessellator.startDrawingQuads();
-                tessellator.setColorRGBA((color >> 16) & 0xff, (color >> 8) & 0xff, color & 0xff,
+                wr.startDrawingQuads();
+                wr.func_178994_b((color >> 16) & 0xff, (color >> 8) & 0xff, color & 0xff,
                         (color >> 24) & 0xff);
 
                 GL11.glBindTexture(GL11.GL_TEXTURE_2D, texture.textureName);
@@ -382,10 +384,10 @@ public class StringCache {
             final float y1 = startY + ((glyph.y) / 2.0F);
             final float y2 = startY + ((glyph.y + texture.height) / 2.0F);
 
-            tessellator.addVertexWithUV(x1, y1, 0, texture.u1, texture.v1);
-            tessellator.addVertexWithUV(x1, y2, 0, texture.u1, texture.v2);
-            tessellator.addVertexWithUV(x2, y2, 0, texture.u2, texture.v2);
-            tessellator.addVertexWithUV(x2, y1, 0, texture.u2, texture.v1);
+            wr.addVertexWithUV(x1, y1, 0, texture.u1, texture.v1);
+            wr.addVertexWithUV(x1, y2, 0, texture.u1, texture.v2);
+            wr.addVertexWithUV(x2, y2, 0, texture.u2, texture.v2);
+            wr.addVertexWithUV(x2, y1, 0, texture.u2, texture.v1);
         }
 
 		/*
@@ -404,8 +406,8 @@ public class StringCache {
 			 */
             color = initialColor;
             GL11.glDisable(GL11.GL_TEXTURE_2D);
-            tessellator.startDrawingQuads();
-            tessellator.setColorRGBA((color >> 16) & 0xff, (color >> 8) & 0xff, color & 0xff,
+            wr.startDrawingQuads();
+            wr.func_178994_b((color >> 16) & 0xff, (color >> 8) & 0xff, color & 0xff,
                     (color >> 24) & 0xff);
 
             for (int glyphIndex = 0, colorIndex = 0; glyphIndex < entry.glyphs.length; glyphIndex++) {
@@ -447,10 +449,10 @@ public class StringCache {
                     final float y1 = startY + ((UNDERLINE_OFFSET) / 2.0F);
                     final float y2 = startY + ((UNDERLINE_OFFSET + UNDERLINE_THICKNESS) / 2.0F);
 
-                    tessellator.addVertex(x1, y1, 0);
-                    tessellator.addVertex(x1, y2, 0);
-                    tessellator.addVertex(x2, y2, 0);
-                    tessellator.addVertex(x2, y1, 0);
+                    wr.addVertex(x1, y1, 0);
+                    wr.addVertex(x1, y2, 0);
+                    wr.addVertex(x2, y2, 0);
+                    wr.addVertex(x2, y1, 0);
                 }
 
 				/*
@@ -468,10 +470,10 @@ public class StringCache {
                     final float y2 = startY
                             + ((STRIKETHROUGH_OFFSET + STRIKETHROUGH_THICKNESS) / 2.0F);
 
-                    tessellator.addVertex(x1, y1, 0);
-                    tessellator.addVertex(x1, y2, 0);
-                    tessellator.addVertex(x2, y2, 0);
-                    tessellator.addVertex(x2, y1, 0);
+                    wr.addVertex(x1, y1, 0);
+                    wr.addVertex(x1, y2, 0);
+                    wr.addVertex(x2, y2, 0);
+                    wr.addVertex(x2, y1, 0);
                 }
             }
 
@@ -648,7 +650,7 @@ public class StringCache {
             color = (colorTable[colorCode] & 0xffffff) | (color & 0xff000000);
         }
 
-        Tessellator.instance.setColorRGBA((color >> 16) & 0xff, (color >> 8) & 0xff, color & 0xff,
+        Tessellator.getInstance().getWorldRenderer().func_178994_b((color >> 16) & 0xff, (color >> 8) & 0xff, color & 0xff,
                 (color >> 24) & 0xff);
         return color;
     }

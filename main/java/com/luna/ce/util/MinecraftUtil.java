@@ -2,7 +2,7 @@ package com.luna.ce.util;
 
 import com.luna.lib.reflection.ReflectionHelper;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.entity.EntityClientPlayerMP;
+import net.minecraft.client.entity.AbstractClientPlayer;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.multiplayer.WorldClient;
 import net.minecraft.util.ChatComponentText;
@@ -17,7 +17,7 @@ public class MinecraftUtil {
         return getMinecraft().theWorld;
     }
 
-    public final EntityClientPlayerMP getPlayer() {
+    public final AbstractClientPlayer getPlayer() {
         return getMinecraft().thePlayer;
     }
 

@@ -8,7 +8,7 @@ import com.luna.ce.module.EnumModuleType;
 import com.luna.ce.module.Module;
 import com.luna.lib.annotations.reflection.loading.Loadable;
 
-import cpw.mods.fml.common.ObfuscationReflectionHelper;
+import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 
 @Loadable
 public class ModuleFastplace extends Module {

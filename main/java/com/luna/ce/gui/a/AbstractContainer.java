@@ -51,6 +51,62 @@ public abstract class AbstractContainer extends AbstractComponent {
     private double maxVisible;
     private double xOffset, yOffset, prevX, prevY;
 
+    public void setMaxVisible(double v) {
+        maxVisible = v;
+    }
+
+    public boolean isDraggable() {
+        return draggable;
+    }
+
+    public boolean isNeedsScrolling() {
+        return needsScrolling;
+    }
+
+    public double getMaxVisible() {
+        return maxVisible;
+    }
+
+    public boolean isScrollable() {
+        return scrollable;
+    }
+
+    public Rectangle2D.Double getPinArea() {
+        return pinArea;
+    }
+
+    public double getPadding() {
+        return padding;
+    }
+
+    public boolean isPinned() {
+        return pinned;
+    }
+
+    public void setPinned(boolean param) {
+        pinned = param;
+    }
+
+    public boolean isMinimized() {
+        return minimized;
+    }
+
+    public void setMinimized(boolean boo) {
+        minimized = boo;
+    }
+
+    public void setPinArea(Rectangle2D.Double param) {
+        pinArea = param;
+    }
+
+    public void setMinimizeArea(Rectangle2D.Double param) {
+        minimizeArea = param;
+    }
+
+    public Rectangle2D.Double getMinimizeArea() {
+        return minimizeArea;
+    }
+
     @Override
     public void initialize() {
         draggable = getTagValue("type").equals("frame");
@@ -84,10 +140,10 @@ public abstract class AbstractContainer extends AbstractComponent {
                 ));
             }
         }
-
+/*
         if (getParent() != null) {
             getParent().unfocusAllChildrenExcept(this);
-        }
+        }*/
 
         addAction(new DefaultMouseAction<AbstractContainer>());
         addAction(new MouseDownAction<AbstractContainer>() {
